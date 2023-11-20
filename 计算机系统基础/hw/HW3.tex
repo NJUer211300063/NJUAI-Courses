@@ -1,0 +1,412 @@
+% 导言区
+\documentclass{article}
+\usepackage{ctex}  % 添加中文包
+\usepackage{multirow} % 表格单元占据多个行或者列
+\usepackage{listings} % 插入代码
+\usepackage{xcolor}
+\lstset{    % 设置代码样式
+	numbers=left, 
+	numberstyle= \tiny, 
+	keywordstyle= \color{ blue!70},
+	commentstyle= \color{red!50!green!50!blue!50}, 
+	frame=shadowbox, % 阴影效果
+	rulesepcolor= \color{ red!20!green!20!blue!20} ,
+	escapeinside=``, % 英文分号中可写入中文
+	xleftmargin=2em,xrightmargin=2em, aboveskip=1em,
+	framexleftmargin=2em
+} 
+\usepackage{amssymb} % 和数学公式有关的包
+\title{ICS homework3} 
+\author{张运吉 211300063} 
+\date{3/11/2022}
+
+% 正文区 
+\begin{document} 
+\maketitle % 必须有这个才能显示标题等信息
+\section{P6}	
+(1).$R[ebp]+8, R[ebp]+12, R[ebp]+16$
+
+(2).
+\lstset{language=C}
+\begin{lstlisting}
+void func(int *xptr, int *yptr, int *zptr) {
+	int x = *xptr;
+	int y = *yptr;
+	int z = *zptr;
+	*yptr = x;
+	*zptr = y;
+	*xptr = z;		
+
+}
+\end{lstlisting}
+\section{P8}
+(1). 指令功能：$R[edx] \gets R[edx]+M[R[eax]]$
+
+	 即$R[edx] \gets 0xfffffff0+0x80$
+	 
+	 所以EDX寄存器的值变为$0x70$	
+	 
+	 $OF=0,ZF=0,SF=0,CF=1$
+	 
+(2). 指令功能：$R[ecx] \gets R[ecx]-M[R[eax]+R[ebx]]$
+
+即$R[ecx] \gets 0x10-0x80000008 = 0x10+0x7ffffff8=0x80000008$
+
+所以ECX寄存器的值变为$0x80000008$	
+
+$OF=1,ZF=0,SF=1,CF=1$
+
+(3). 指令功能：$R[bx] \gets R[bx]+M[R[eax]+8*R[ecx]+4]$
+
+即$R[bx] \gets 0x0100|0xff00=0xff00$
+
+所以BX寄存器的值变为$0xff00$	
+
+$OF=0,ZF=0,SF=1,CF=0$
+
+(4). 指令功能：根据运算结果改变条件寄存器中的条件标记
+
+$\because 0x80 \& R[dl]=0x80 \& 0x80=0x80$
+
+$\therefore OF=0,ZF=0,SF=1,CF=0$
+
+(5). 指令功能：$R[ecx] \gets M[R[eax]+R[edx]] * 32$
+
+即$R[ecx] \gets 0x908f12a8*32 = 0x11e25500$
+
+所以ECX寄存器的值变为$0x11e25500$	
+
+$OF=1,ZF=0,SF=1,CF=1$
+
+(6). 指令功能：$R[dx-ax] \gets R[ax]*R[bx]$
+
+即$R[dx-ax] \gets 0x9300*0x0100 = 0x00930000$
+
+所以DX寄存器的值变为$0x0093$,AX寄存器的值变为$0x0000$
+
+$OF=CF=1$
+
+(7). 指令功能：$R[cx] \gets R[cx]-1$
+
+即$R[cx] \gets 0x0010-1 = 0x0010+0xffff=0x000f$
+
+所以CX寄存器的值变为$0x000f$	
+
+$OF=0,ZF=0,SF=0$
+
+\section{P9}
+1.$movl \quad 12(\% ebp), \% ecx$  \quad //$R[ecx] \gets M[R[ebp]+12]$, y送ECX
+
+2.$sall \quad \$ 8, \% ecx$  \quad //$R[ecx] \gets R[ecx]<<8$, y*256送ECX
+
+3.$movl \quad 8(\% ebp), \% eax$  \quad //$R[eax] \gets M[R[ebp]+8]$ ,x送EAX
+
+4.$movl \quad 20(\% ebp), \% edx$ \quad  //$R[edx] \gets M[R[ebp]+20]$, k送EDX
+
+5.$imull \quad \% edx, \% eax$  \quad //$R[eax] \gets R[eax]+R[edx]$, kx送EAX
+
+6.$movl \quad 16(\% ebp), \% edx$  \quad //$R[edx] \gets M[R[ebp]+16]$ ,z送EDX
+
+7.$andl \quad \$ 65520, \% edx$  \quad //$R[edx] \gets R[edx] \& 65520$, z \& 0xfff0 送EDX
+
+8.$andl \quad \% ecx, \% edx$  \quad //$R[edx] \gets R[edx] \& R[ecx]$
+
+9.$subl \quad \% edx, \% eax$  \quad //$R[eax] \gets R[eax] - R[edx] $
+
+$\therefore$第3行：$int \quad v = k * x - (y * 256 + z \& 0xfff0)$
+
+\section{P11}
+(1) 目标地址：$0x804838c+2+0x08=0x8048396$
+
+执行call指令时，$(PC)=0x804838e+5=0x8048393$
+
+$\because 0x80483b1=0x8048393+0x1e$
+
+$\therefore$可以得出call指令后4个字节是偏移量，第一个字节是操作码
+
+转移目标地址$=(PC)+$偏移量
+
+(4) 目标地址：$0x804829b+0xffffff00=0x804819b$
+
+\section{P14}
+(1)
+
+1.$movw \quad 8(\% ebp), \% bx$  \quad //$R[bx] \gets M[R[ebp]+8]$, x送BX
+
+2.$movw \quad 12(\% ebp), \% si$  \quad //$R[si] \gets M[R[ebp]+12]$, y送AX
+
+3.$movw \quad 16(\% ebp), \% cx$  \quad //$R[cx] \gets M[R[ebp]+16]$, k送CX
+
+4. $.L1:$
+
+5.$movw \quad \% si, \% dx$  \quad //$R[dx] \gets R[si]$, y送DX
+
+6.$movw \quad \% dx, \% ax$  \quad //$R[ax] \gets R[dx]$, y送AX
+
+7.$sarw \quad \$ 15, \% dx$  \quad //$R[dx] \gets R[dx] >> 15$, DX中存y的符号
+
+8.$idiv \quad \% cx$  \quad //$R[ax] \gets R[dx-ax] \div R[cx]$,  $y \div k$ 的商送AX
+
+\qquad \qquad \qquad //$R[dx] \gets R[dx-ax] \% R[cx]$,  $y \div k$ 的余数送CX
+
+9.$imulw \quad \% dx, \% bx$  \quad //$R[bx] \gets R[bx] - R[dx] $, x*(y\%k)送BX
+
+10.$decw \quad \% cx$  \quad //$R[cx] \gets R[cx]-1$,  k-1送CX
+
+11.$testw \quad \% cx, \%cx$  \quad //$R[cx] \& R[cx]$,  OF=CF=0
+
+12.$jle \quad .L2$ \quad // 若k小于等于0，则装.L2
+
+13.$cmpw \quad \% cx, \% si$  \quad //$R[si] - R[cx]$, $y-k$
+
+14.$jg \quad .L1$ \quad // 若$R[si] > R[cx]$($y>k$)转L2
+
+15.$.L2$
+
+16.$movswl \quad \% bx, \% eax$  \quad //$R[eax] \gets R[bx]$, x*(y\%k)送AX
+
+(2)被调用者保存寄存器：BX,SI
+
+调用者保存寄存器：AX, CX, DX
+
+EBX和ESI必须保存到栈中
+
+(3)使DX中保存y的符号，这样在第8行的除法操作中R[dx-ax]保存的就是y符号拓展后的机器数。
+
+\section{P16}
+对应关系：
+
+$x+3=0/x=-3 \quad .L7$
+
+$x+3=1/x=-2 \quad .L2$
+
+$x+3=2/x=-1 \quad .L2$
+
+$x+3=3/x=0 \quad .L3$
+
+$x+3=4/x=1 \quad .L4$
+
+$x+3=5/x=2 \quad .L5$
+
+$x+3=6/x=3 \quad .L6$
+
+$x+3=7/x=4 \quad .L6$
+
+switch-case语句原型：
+
+\begin{lstlisting}
+	switch(x) {
+		case -2:case -1:
+			... // 标号.L2
+			break;
+		case 0:
+			... // 标号.L3
+			break;
+		case 1:
+			... // 标号.L4
+			break;
+		case 2:
+			... // 标号.L5
+			break;
+		case 4:
+			... // 标号.L6
+			break;
+		default:
+			... // 标号.L7
+	}
+
+\end{lstlisting}
+
+由此可知，当x不属于前6种case时会执行default分支，标号为-2和-1会执行同一个case分支
+\section{P17}
+由第2、3行可知：a时char型，因为movsbw是字符串处理指令，且是移动一个字节，p是short *型。
+
+由第4、5行可知：b、c是unsigned short型，因为movzwl是从2字节零拓展到4字节并移动。
+
+由第6行可知返回类型是unsigned int。
+
+综上，test的原型为：
+
+$unsigned \quad int \quad test(char \quad a, unsigned \quad short \quad b, unsigned \quad short \quad c, short \quad *b)$
+
+\section{P18}
+\subsection{18.1}
+$R[ebp]=0xbc000020-0x4=0xbc00001c$
+
+$R[ebp]=0xbc00001c$
+
+$R[ebp]=0xbc000030$
+
+\subsection{18.2}
+$R[esp]=r[ebp]=0xbc00001c$
+
+$R[esp]=0xbc00001c-40-4=0xbbfffff0$
+
+$R[esp]=0xbc00001c+4=0xbc000020$
+
+\subsection{18.3}
+x的地址: $0xbc00001c-4=0xbc000018$
+
+y的地址: $0xbc00001c-8=0xbc000014$
+
+\newpage
+\subsection{18.4}
+\begin{table}[h!]
+	\begin{center}
+	  \begin{tabular}{|c|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+		\hline
+		0xbc000030 \\
+		\hline
+		$x=15$\\
+		\hline
+		$y=20$\\
+		\hline
+		...\\
+		\hline
+		...\\
+		\hline
+		...\\
+		\hline
+		0xbc000014\\
+		\hline
+		0xbc000018\\
+		\hline
+		0x804c0000\\
+		\hline
+		从scanf的返回地址\\
+		\hline
+		...\\
+		\hline
+		...\\
+		\hline
+		...\\
+	  \end{tabular}
+	\end{center}
+\end{table}
+最顶层一格地址是0xbc00001c,往下每走一格减4，格子“从scanf的返回地址”地址是0xbbfffff0
+\section{P23}
+执行第11行指令后，a[i][j][k]的地址是$a+4*(63i+9j+k)$
+
+$\therefore MN=63, N=9 \Rightarrow M=7$
+
+由第12行知$sizeof(a)=4536$
+
+$\therefore LMN= \frac{4536}{64}=1134$
+
+$\therefore L=\frac{1134}{63}=18$
+
+综上，$L=18,M=7,N=9$
+
+\newpage
+\section{P26}
+\begin{table}[h]
+	\begin{center} % 表格居中
+	  \begin{tabular}{c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+		\textbf{表达式EXPR} & \textbf{TYPE类型} & \textbf{汇编指令序列}\\
+		\hline
+		\multirow{2}{*}{uptr->s1.y}  & \multirow{2}{*}{short} & $movw \quad 4(\% eax), \% ax$\\ 
+		&&$movw \quad \% ax, (\% edx)$\\
+		\hline
+		\multirow{2}{*}{\&uptr->s1.z} & \multirow{2}{*}{short *} & $lead \quad 6(\%eax), \%eax$\\
+		&&$movw \quad \%eax, (\% edx)$\\
+		\hline
+		uptr->s2.a & short * & $movw \quad \%eax, (\% edx)$\\
+		\hline
+		\multirow{3}{*}{uptr->s2.a[uptr->s2.b]} &\multirow{3}{*}{short} & $movl \quad 4(\% eax), \% ecx$\\
+		&&$movl \quad (\% eax, \% ecx, 2), \% eax$\\
+		&&$movw \quad \%eax, (\%edx)$\\
+		\hline
+		\multirow{3}{*}{uptr->s2.p} &\multirow{3}{*}{char} & $movl \quad 8(\% eax), \% eax$\\
+		&&$movl \quad (\% eax), \% al$\\
+		&&$movw \quad \%al, (\%edx)$\\
+	\end{tabular}
+	\end{center}
+  \end{table}
+
+\section{P27}
+\begin{table}[h!]
+	\begin{center}
+	  \begin{tabular}{c|c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+		s & c & i & d \\
+		\hline
+		0 & 2 & 4 & 8\\
+	  \end{tabular}
+	\end{center}
+\end{table}
+S1: 总共12字节，按4字节边界对齐。
+
+\begin{table}[h!]
+	\begin{center}
+	  \begin{tabular}{c|c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+		i & s & c & d \\
+		\hline
+		0 & 4 & 6 & 7\\
+	  \end{tabular}
+	\end{center}
+\end{table}
+S2: 总共8字节，按4字节边界对齐。
+
+\begin{table}[h!]
+	\begin{center}
+	  \begin{tabular}{c|c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+		c & s & i & d \\
+		\hline
+		0 & 2 & 4 & 8\\
+	  \end{tabular}
+	\end{center}
+\end{table}
+S3: 总共12字节，按4字节边界对齐。
+
+\begin{table}[h!]
+	\begin{center}
+	  \begin{tabular}{c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+		s & c \\
+		\hline
+		0 & 6 \\
+	  \end{tabular}
+	\end{center}
+\end{table}
+S4: 总共8字节，按2字节边界对齐。
+
+\begin{table}[h!]
+	\begin{center}
+	  \begin{tabular}{c|c|c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+		c & s & i & d & e \\
+		\hline
+		0 & 4 & 8 & 12 & 16\\
+	  \end{tabular}
+	\end{center}
+\end{table}
+S5: 总共24字节，按4字节边界对齐。
+
+\begin{table}[h!]
+	\begin{center}
+	  \begin{tabular}{c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+		c & s & d \\
+		\hline
+		0 & 36 & 40\\
+	  \end{tabular}
+	\end{center}
+\end{table}
+S3: 总共44字节，按4字节边界对齐。
+
+\section{P30}
+\begin{lstlisting}
+void abc(int c, long *a, int *b);
+void abc(unsigned c, long *a, int *b);
+void abc(long c, long *a, int *b);
+void abc(unsigned long c, long *a, int *b);
+\end{lstlisting}
+
+\section{P32}
+\begin{lstlisting}
+typedef struct {
+	int idx;
+	unsigned a[6];
+} line_struct;
+\end{lstlisting}
+
+由第11、12行指令可知，x数组所占空间为$0xc8-4=196B$
+
+$\therefore LEN=\frac{196}{28}=7$
+\end{document}

@@ -1,0 +1,222 @@
+% 导言区
+\documentclass{article}
+\usepackage{ctex}  % 添加中文包
+\usepackage{multirow} % 表格单元占据多个行或者列
+\usepackage{listings} % 插入代码
+\usepackage{xcolor}
+\lstset{    % 设置代码样式
+	numbers=left, 
+	numberstyle= \tiny, 
+	keywordstyle= \color{ blue!70},
+	commentstyle= \color{red!50!green!50!blue!50}, 
+	frame=shadowbox, % 阴影效果
+	rulesepcolor= \color{ red!20!green!20!blue!20} ,
+	escapeinside=``, % 英文分号中可写入中文
+	xleftmargin=2em,xrightmargin=2em, aboveskip=1em,
+	framexleftmargin=2em
+} 
+\usepackage{amssymb} % 和数学公式有关的包
+\title{ICS homework5} 
+\author{张运吉 211300063} 
+\date{7/12/2022}
+
+% 正文区 
+\begin{document} 
+\maketitle % 必须有这个才能显示标题等信息
+
+\section{P3}
+\subsection*{(1)}
+512MB/(64M$\times$8bit)=512MB/(64M$\times$1B)=8
+所以需要8个DRAM芯片。
+\subsection*{(2)}
+2GB/512MB=4,需要4个内存条。
+\subsection*{(3)}
+按字节编址，$4GB=2^{32}B$,所以主存地址一共有32位。
+
+设主存地址为$a_{31}...a_{0}$,因为每个内存条是512MB，所以需要29位来指出内存条内的地址，
+即$a_{28}...a_{0}$,因为是64M$\times$8位的芯片，所以行列地址分别需要13位，芯片内行地址
+位$a_{28}...a_{16}$,芯片内列地址位$a_{15}...a_{3}$，$a_{2}a_{1}a_{0}$用于选择芯片。
+\section{P4}
+\subsection*{(1)}
+因为地址线有16位，所以主存地址空间为0000H~FFFFH,因为0000H~7FFFH分配给ROM区，
+所以RAM区的地址范围是8000H~FFFFH,需要RAM芯片$32KB/(16K\times4bit)=4$个，地址线中最高位
+即$A_{15}$用来区分ROM区和RAM区。
+\subsection*{(2)}
+先计算新的RAM区的大小，ROM区大小为$2^{15}B=32KB$,主存空间总大小为$16MB=512\times 32KB$,所以
+RAM区大小为$511\times 32KB$,需使用的芯片数量$511\times32KB/(16K\times4bit)=2044$.
+\section{P5}
+数据块处理时间：$20000/500MHz=0.04ms$
+
+磁盘旋转一圈的时间:$1/(7200/60)=0.00833s=8.33ms$,所以平均旋转等待时间为$8.33/2=4.17ms$
+
+一个数据块的平局读取或写回时间:$4KB/(40MB/s)=0.1024ms$
+
+所以数据块平局读取或写回时间：$2+10+4.17+0.1024=16.27ms$
+
+因为数据块是随机存放的，所以“读出-处理-写回”一次的时间:$16.27\times 2+0.04=32.58ms$
+
+每秒可以完成这样的操作次数:$1000/32.58\approx 30$
+\section{P8}
+\subsection*{(1)}
+因为主存地址空间大小是1GB，所以主存地址位数一共有30位，记为$A_{29}...A_{0}$,
+cache行数：$64KB/128B=512$,采取直接映射，所以cache行号占9位，每个主存块128B，
+块内地址7位，主存地址标记位有$30-9-7=14$位。
+
+综上，主存地址的高14位是标记位，中间9位是行索引，低7位是块内地址。
+\subsection*{(2)}
+因为采用直接映射的方式，所以不考虑替换算法，也就没有用于替换的控制位，采用直写方式，
+cache中没有dirty位，所以每个cache行包含1个有效位，14个标记位，128B数据，所以，cache
+总容量为$512\times (1+14+128\times 8)bit=519.5Kbit\approx 65KB$
+\section{P12}
+\subsection*{(1)}
+数组x和y都是按存放顺序访问，所以空间局部性好，由于每个数组只访问一次，所以没有时间局部性。
+
+无法推断命中率的高低，因为没有给出cache的容量、块大小、映射方式等信息。
+\subsection*{(2)}
+cache一共有两行，主存块为16字节，float类型四个字节，所以一个主存块可以包含4个数组元素，
+数组x存放在40H开始的连续字节中，x[0]-x[3]在内存中属于第四块，x[4]-x[7]在第5块，
+y[0]-y[3]属于第六块，y[4]~y[7]属于第七块，所以x[0]-x[3]与y[0]-y[3]总是映射到cache第0行，
+x[4]-x[7]与y[4]~y[7]总是映射到cache第1行，每个x[i]和y[i]总是命中到同一行，互相淘汰对方，命中率为0.
+\subsection*{(3)}
+cache一共有四行，分为两个组，x[0]-x[1]属于第8块，依此类推，y[6]-y[7]存放在第15块，
+因为每个组有两行，所以x[i]和y[i]可以存放在同一组的不同行中，对于每一块中的两个数组元素，
+在访问第一个元素总是未命中，访问第二个总是命中，所以命中率是$50\%$.
+\subsection*{(4)}
+若是将x定义为float[12]，则使得y从主存第七块开始存放，那么x[i]和y[i]存放cache在不同行中，不会相互淘汰，
+对于每一块中的四个数组元素，第一个总是未命中，后面3个总是命中，所以命中率为$75\%$.
+\section{P13}
+当cache数据区大小为32B时：
+\begin{table}[h]
+	\begin{center} % 表格居中
+	  \begin{tabular}{c|c|c|c|c|c|c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+		\hline
+		\textbf{} & \textbf{col=0} & \textbf{col=1} & \textbf{col=2} & \textbf{col=3} &\textbf{col=0} & \textbf{col=1} & \textbf{col=2} & \textbf{col=3}\\
+		\hline
+		row=0 & 0/miss & 0/miss & 0/hit & 0/miss & 0/miss & 0/miss & 0/miss & 0/miss \\
+		\hline
+		row=1 & 1/miss & 1/hit & 1/miss & 1/hit & 1/miss & 1/miss & 1/miss & 1/miss \\
+		\hline
+		row=2 & 0/miss & 0/miss & 0/hit & 0/miss & 0/miss & 0/miss & 0/miss & 0/miss \\
+		\hline
+		row=3 & 1/miss & 1/hit & 1/miss & 1/hit & 1/miss & 1/miss & 1/miss & 1/miss \\
+		\hline
+	\end{tabular}
+	\end{center}
+\end{table}
+
+当cache数据区大小为128B时：
+\begin{table}[h]
+	\begin{center} % 表格居中
+	  \begin{tabular}{c|c|c|c|c|c|c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+		\hline
+		\textbf{} & \textbf{col=0} & \textbf{col=1} & \textbf{col=2} & \textbf{col=3} &\textbf{col=0} & \textbf{col=1} & \textbf{col=2} & \textbf{col=3}\\
+		\hline
+		row=0 & 4/miss & 4/hit & 4/hit & 4/hit & 0/miss & 0/hit & 0/hit & 0/hit \\
+		\hline
+		row=1 & 5/miss & 5/hit & 5/hit & 5/hit & 1/miss & 1/hit & 1/hit & 1/hit \\
+		\hline
+		row=2 & 6/miss & 6/hit & 6/hit & 6/hit & 2/miss & 2/hit & 2/hit & 2/hit \\
+		\hline
+		row=3 & 7/miss & 7/hit & 7/hit & 7/hit & 3/miss & 3/hit & 3/hit & 3/hit \\
+		\hline
+	\end{tabular}
+	\end{center}
+\end{table}
+\section{P19}
+\subsection*{(1)}
+直接映射，s=64：访存顺序为:a[0],a[64],a[0],a[64] ...
+
+a[0]和a[64]都是对应主存块的第一个元素，a[0]和a[64]相差256B，正好是8个主存块，因此这两个元素所在内存块
+会映射到cache同一行，每次都会发生冲突，所以缺失率为$100\%$.
+\subsection*{(2)}
+直接映射，s=63：访存顺序为：a[0],a[63],a[126],a[0],a[63],a[126]...
+
+a[63]所在主存块的第一个元素是a[56]，a[126]所在主存块的第一个元素是a[120]，a[56]与a[120]
+正好相差256B,即8个主存块，所以会映射到cache同一行，每次都会发生冲突，而a[0]则不会发生冲突，
+所以缺失率是$67\%$.
+\subsection*{(3)}
+2路组相联，s=64：访存顺序为:a[0],a[64],a[0],a[64] ...
+
+a[0]和a[64]都是对应主存块的第一个元素，a[0]和a[64]相差256B，正好是8个主存块，因此这两个元素所在内存块
+会映射到cache同一组，但由于是两路组相联，所以可以放在同一组的不同行中，只有第一次访问时会缺失，后续访问不会发生冲突，冲突率几乎是$0$。
+\subsection*{(4)}
+2路组相联，s=63：访存顺序为：a[0],a[63],a[126],a[0],a[63],a[126]...
+
+a[63]所在主存块的第一个元素是a[56]，a[126]所在主存块的第一个元素是a[120]，a[56]与a[120]
+正好相差256B,即8个主存块，所以会映射到cache同一组，但由于是两路组相联，所以可以放在同一组的不同行中，只有第一次访问时会缺失，后续访问不会发生冲突，
+a[0]则存放在别的组中，不会发生冲突，总的来说，只有第一次访问时会发生冲突，后续访问不会发生冲突，冲突率几乎是$0$。
+\section{P20}
+由于$2^{36}B/16KB=2^{22}$,物理页号的位数至少为22,每个页表项包括有效位、保护位、修改位、使用为、物理页号等，
+所以一个页表项至少为:$22+4=26位$，虚拟页数为:$2^{40}B/16KB=2^{26}$,为了简化对页表的访问，页表项的大小应是2
+的幂次，这里我们取32，所以每个进程的页表大小为:$2^{26}\times 32bit = 256MB$.
+
+问题：构建出的页表太大，导致无法一次性加入到内存中。
+\section{P21}
+\subsection*{(1)}
+低7位是页内偏移量，高9位是虚页号，虚页号中高7位是TLB标记，低2位是TLB组索引。
+\subsection*{(2)}
+低7位是页内偏移量，高5位是物理页号。
+\subsection*{(3)}
+低2位是块内地址，中间4位是cache行索引，高6位是标记。
+\subsection*{(4)}
+虚拟地址:067AH=0000 0110 0111 1010B,所以虚页号为：000001100B,低2为是00B，
+所以映射到TLB中第0组，高7位标记是0000011B=03H,TLB中对应的表项有效位是0，所以
+TLB缺失，需要到内存的页表中查找，查找b图中的00C处表项，有效位是1，说明对应的页在内存中，
+取出物理页号19H,和虚拟地址中的页内偏移组合形成物理地址：110011 1110 10B,去除物理地址中的
+cache行索引字段1110，直接找到cache中第E行，其有效位是1，且标记33H=110011B,cache命中。
+根据物理地址的低2位10B，取出字节2中的内容2D4AH。
+\section{P23}
+\subsection*{(1)}
+$movl \quad \$0,\%ecx$
+
+$.loop$
+
+$cmpl \quad \%ebx,\%ecx$
+
+$jge \quad .done$
+
+$addl \quad (\%edx,\%ecx,4), \%eax$
+
+$incl \quad \%ecx$
+
+$jmp \quad .loop$
+
+$.done$
+\subsection*{(2)}
+执行到程序P时，处于保护模式并且采用分页虚拟管理方式，所以$PE=1, PG=1$.
+\subsection*{(3)}
+IA-32中long时32位带符号整数，所以指令I为$addl \quad (\%edx,\%ecx,4), \%eax$，
+寻址方式是"基址+比例变址+偏移量"。
+\subsection*{(4)}
+线性地址：$0x0+0x8048c08=0x8048c08$.
+
+指令I的地址低12位是页内偏移量：1100 0000 1000，高20位是虚页号，虚页号是：0000 1000 0000 0100 1000.
+
+虚页号中低10位是页表索引：00 0100 1000，高10位是页目录索引：0000 1000 00.
+
+指令I在内存地址为:$0x1020000+0xC08=0x1020C08$起的4个字节。
+
+P=1,R/W=0,U/S=1,A=1,D=0.
+\subsection*{(5)}
+取指令不会发生缺页异常，因为指令I不在一个页的起始处，在执行指令I前面的指令发生缺页时，
+会将指令I一起调入内存；但在取操作数a[0]的时候可能会发生缺页异常，因为a[0]所在地址对应的
+页可能还没有加载到内存，若是这样，页故障线性地址是0x8049000,该地址保存在控制寄存器CR2中。
+\subsection*{(6)}
+同(5)，取指令时不会发生TLB缺失，但取操作数可能会发生TLB缺失。
+20为虚拟页号中高18位位TLB标记，低2位为TLB索引。
+
+根据TLB标记和TLB索引，在TLB中能找到一个标记一样且有效位为1的的页表项，TLB命中，取出
+页框号028B0H,得到主存地址0x28b0c08.
+\subsection*{(7)}
+指令cache一共有$8KB/32B=256$行，组数为128。指令I的线性地址为0x8048c08，其中第12为时页内偏移量，
+，组索引为1100000，块内地址为01000，因为指令I不在某个主存块的起始位置，因此在第一次执行指令I时，
+不会发生cache缺失。
+
+映射到1100000组中。
+\subsection*{(8)}
+N=2000，数组a的大小为8000B，链接后a的首地址为0x8049300,对应段基址为0，所以a的
+线性地址为0x8049300,这不是一个页面的起始地址，$8000/4K=\approx 1.9$,最后占三个页面。
+虚页号分别是0000 1000 0000 0100 1001和0000 1000 0000 0100 1010和0000 1000 0000 0100 1011.
+
+因为$4\times 1200=4800>4096$,所以a[1200]在第二个页面。
+\end{document}

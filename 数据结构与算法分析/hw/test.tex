@@ -1,0 +1,46 @@
+% 导言区
+\documentclass{article}
+\usepackage{ctex}  % 添加中文包
+\usepackage{multirow} % 表格单元占据多个行或者列
+\usepackage{listings} % 插入代码
+\usepackage{xcolor}
+\lstset{    % 设置代码样式
+	numbers=left, 
+	numberstyle= \tiny, 
+	keywordstyle= \color{ blue!70},
+	commentstyle= \color{red!50!green!50!blue!50}, 
+	frame=shadowbox, % 阴影效果
+	rulesepcolor= \color{ red!20!green!20!blue!20} ,
+	escapeinside=``, % 英文分号中可写入中文
+	xleftmargin=2em,xrightmargin=2em, aboveskip=1em,
+	framexleftmargin=2em
+} 
+\usepackage{amssymb} % 和数学公式有关的包
+\title{ICS homework5} 
+\author{张运吉 211300063} 
+\date{7/12/2022}
+
+% 正文区 
+\begin{document} 
+\maketitle % 必须有这个才能显示标题等信息
+
+\lstset{language=python}
+\begin{lstlisting}
+def PERT(G, s):
+TOPO-SORT(G)
+for each vertex v in G:
+    v.d = INF
+s.d = 0
+for each vertex v in G (taken in topologically sorted order):
+    for each edge (v, u) in G:
+        if u.d > v.d + w((v, u)):
+            u.d = v.d + w((v, u))
+            u.p = v
+def solve_a:
+    preprocess G, get G'
+    PERT(G', s0)
+    return v0.d
+
+\end{lstlisting}
+
+\end{document}

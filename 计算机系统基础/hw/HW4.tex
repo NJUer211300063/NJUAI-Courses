@@ -1,0 +1,197 @@
+% 导言区
+\documentclass{article}
+\usepackage{ctex}  % 添加中文包
+\usepackage{multirow} % 表格单元占据多个行或者列
+\usepackage{listings} % 插入代码
+\usepackage{xcolor}
+\lstset{    % 设置代码样式
+	numbers=left, 
+	numberstyle= \tiny, 
+	keywordstyle= \color{ blue!70},
+	commentstyle= \color{red!50!green!50!blue!50}, 
+	frame=shadowbox, % 阴影效果
+	rulesepcolor= \color{ red!20!green!20!blue!20} ,
+	escapeinside=``, % 英文分号中可写入中文
+	xleftmargin=2em,xrightmargin=2em, aboveskip=1em,
+	framexleftmargin=2em
+} 
+\usepackage{amssymb} % 和数学公式有关的包
+\title{ICS homework3} 
+\author{张运吉 211300063} 
+\date{16/11/2022}
+
+% 正文区 
+\begin{document} 
+\maketitle % 必须有这个才能显示标题等信息
+
+\section*{P3}
+
+\begin{table}[h]
+	\begin{center} % 表格居中
+	  \begin{tabular}{c|c|c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+		\hline
+		\textbf{符号} & \textbf{是否在test.o的符号表中} & \textbf{定义模块} & \textbf{符号类型} & \textbf{节}\\
+		\hline
+		a & 是 & main.o & 外部 & .data \\
+		\hline
+		val & 是 & test.o & 全局 & .data \\
+		\hline
+		sum & 是 & test.o & 全局 & .text \\
+		\hline
+		i & 不是 & &  &  \\
+		\hline
+		
+	  \end{tabular}
+	\end{center}
+\end{table}
+
+\section*{P4}
+
+\begin{table}[h]
+	\begin{center} % 表格居中
+	  \begin{tabular}{c|c|c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+		\hline
+		\textbf{符号} & \textbf{是否在swap.o的符号表中} & \textbf{定义模块} & \textbf{符号类型} & \textbf{节}\\
+		\hline
+		buf & 是 & main.o & 外部 & .data \\
+		\hline
+		bufp0 & 是 & swap.o & 全局 & .data \\
+		\hline
+		bufp1 & 是 & swap.o & 本地 & .bss \\
+		\hline
+		incr & 是 & swap.o & 本地 & .text \\
+		\hline
+		count & 是 & swap.o & 本地 & .data \\
+		\hline
+		swap & 是 & swap.o & 全局 & .text \\
+		\hline
+		temp & 不是 & &  &  \\
+	  \end{tabular}
+	\end{center}
+\end{table}
+
+\section*{P5}
+\subsection*{(1)}
+main.c中的强符号有x、z、main，弱符号有y、proc1；
+
+proc1.c中的强符号有proc1,弱符号有x。
+
+\subsection*{(2)}
+x被分配在main.o的.data节中，占4个字节，其后是z，占2个字节，z后的2字节空余。
+所以，执行第7行前&x和&z中存放的内容如下：
+\begin{table}[h]
+	\begin{center} % 表格居中
+	  \begin{tabular}{c|c|c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+		\textbf{} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3}\\
+		\hline
+		\&z & 02 & 00 & ... & ... \\
+		\hline
+		\&x & 01 & 01 & 00 & 00 \\
+		
+	  \end{tabular}
+	\end{center}
+\end{table}
+
+根据符号解析的规则，在执行proc1时，x绑定的是main.o中定义的x，所以$x=-1.5$实际上做的是把-1.5的机器数放到&x开始的8个字节，执行第7行前&x和&z中存放的内容如下：
+\begin{table}[h]
+	\begin{center} % 表格居中
+	  \begin{tabular}{c|c|c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+		\textbf{} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3}\\
+		\hline
+		\&z & 00 & 00 & F8 & BF \\
+		\hline
+		\&x & 00 & 00 & 00 & 00 \\
+		
+	  \end{tabular}
+	\end{center}
+\end{table}
+
+所以最后打印的结果是"x=0,z=0".
+
+若第3行改为"short y=1, z=2;"执行第7行前.data中存放的内容如下：
+\begin{table}[h]
+	\begin{center} % 表格居中
+	  \begin{tabular}{c|c|c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+		\textbf{} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3}\\
+		\hline
+		\&y & 01 & 00 & 02 & 00 \\
+		\hline
+		\&x & 01 & 01 & 00 & 00 \\
+		
+	  \end{tabular}
+	\end{center}
+\end{table}
+
+执行第7行后.data中存放的内容如下：
+\newpage
+\begin{table}[h]
+	\begin{center} % 表格居中
+	  \begin{tabular}{c|c|c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+		\textbf{} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3}\\
+		\hline
+		\&y & 00 & 00 & F8 & BF \\
+		\hline
+		\&x & 00 & 00 & 00 & 00 \\
+		
+	  \end{tabular}
+	\end{center}
+\end{table}
+
+所以最好打印的结果是"x=0,z=-16392".
+
+\subsection*{(3)}
+
+将模块proc1.c中第1行修改为"static double x;"就会使x被定义为本地符号，从而在调用proc1的时候x被重定位到proc1.c中定义的x，就不会修改main.c中定义的x的值，从而得到期望的结果。
+
+
+\section*{P6(3)}
+1.REF(m1.main)$\longrightarrow$在m1中没有对main的引用
+
+2.REF(m2.main)$\longrightarrow$DEF(m1.main)
+
+3.REF(m1.p1)$\longrightarrow$DEF(m2.p1)
+
+4.REF(m1.x)$\longrightarrow$这里的x是局部变量
+
+5.REF(m2.x)$\longrightarrow$DEF(m2.x)
+
+
+\section*{P7}
+
+m1.c中定义的main是强符号，p1是弱符号，m2.c中定义的main是弱符号，p1是强符号。
+执行main函数时，调用的p1是在m2.c中定义的p1，而m2.c中的p1函数中打印的main是m1.c中的main，
+即输出main函数起始地址的两个字节内容，因为main函数的前两条机器指令是"55"和"89 e5",
+所以最后会打印出字符串"0x5589\n".
+
+
+\section*{P8}
+
+可读写数据段由所有可重定位目标文件中的.data节和.bss节合并形成，.data节中存的是初始化的全局变量，必须在可执行文件中记录它们的值，
+而.bss节存的是未初始化的全局变量，因此可执行文件中没有记录它们的值。
+
+由图可知，只需将可执行文件中偏移地址0x448开始的0xe8个字节存放到对应的虚拟地址空间中，所以
+0xe8是可执行文件中.data节的大小，后面的28字节是未初始化的全局变量所在的区域。
+
+\section*{P9}
+(1) gcc -static -o a p.o libx.o liby.o
+
+(2) gcc -static -o a p.o libx.o liby.o libx.o
+
+(3) gcc -static -o a p.o libx.o liby.o libx.o libz.o
+
+\section*{P10}
+需重定位的符号名：swap
+
+相对.text节起始位置的偏移:0x7
+
+所在指令行号：6
+
+重定位类型: R\_386\_PC32
+
+重定位前的内容：$0xfffffffc=-4$
+
+重定位后的内容：$07 00 00 00$
+
+计算过程：main函数最后一条指令地址:$0x8048386+0x12=0x8048398$,swap代码紧跟
+其后，按4字节边界对齐，所以swap的首地址为$0x8048398$,所以偏移量$=0x8048398-(0x8048386+0x7)-(-4)=7$
+\end{document}
