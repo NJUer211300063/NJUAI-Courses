@@ -1,0 +1,695 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#"
+     xml:base="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#LocatedAt -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#LocatedAt">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Activity"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#begin_time -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#begin_time">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#end_time -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#end_time">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#has_gold_medel -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#has_gold_medel">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Activity -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Activity"/>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Aerials -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Aerials">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Freestyle_Skiing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Aerials_Mixed_Team -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Aerials_Mixed_Team">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Freestyle_Skiing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Combined -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Combined">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Skiing_Speed_Events"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Combined_Technical_Event -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Combined_Technical_Event">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Skiing_Technical_Events"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Skiing -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Skiing">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Skiing_Speed_Events -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Skiing_Speed_Events">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Skiing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Skiing_Technical_Events -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Skiing_Technical_Events">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Skiing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Biathlon -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Biathlon">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Big_Air_Shougang -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Big_Air_Shougang">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Bobsleigh -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Bobsleigh">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Capital_Indoor_Stadium -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Capital_Indoor_Stadium">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#ClosingCeremony -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#ClosingCeremony">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Activity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#LocatedAt"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#National_Stadium"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Cross -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Cross">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Snowboard"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Cross-Country_Skiing -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Cross-Country_Skiing">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Cross_Mixed_Team -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Cross_Mixed_Team">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Snowboard"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Curling -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Curling">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Downhill -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Downhill">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Skiing_Speed_Events"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Figure_Skating -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Figure_Skating">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Freestyle_Skiing -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Freestyle_Skiing">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Freestyle_Skiing_Big_Air -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Freestyle_Skiing_Big_Air">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Freestyle_Skiing_Halfpipe -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Freestyle_Skiing_Halfpipe">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Freestyle_Skiing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Freestyle_Skiing_Slopestyle -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Freestyle_Skiing_Slopestyle">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Freestyle_Skiing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Giant_Slalom -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Giant_Slalom">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Skiing_Technical_Events"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Halfpipe -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Halfpipe">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Snowboard"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Ice_Hockey -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Ice_Hockey">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#LocatedAt"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#National_Indoor_Stadium"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#LocatedAt"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Wukesong_Sports_Centre"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Luge -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Luge">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Moguls -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Moguls">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Freestyle_Skiing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#National_Aquatics_Centre -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#National_Aquatics_Centre">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#National_Indoor_Stadium -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#National_Indoor_Stadium">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#National_Speed_Skating_Oval -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#National_Speed_Skating_Oval">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#National_Stadium -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#National_Stadium">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Nordic_Combined -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Nordic_Combined">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#OpeningCeremony -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#OpeningCeremony">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Activity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#LocatedAt"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#National_Stadium"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Parallel_Giant_Slalom -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Parallel_Giant_Slalom">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Snowboard"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Place -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Place"/>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Short_Track_Speed_Skating -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Short_Track_Speed_Skating">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#LocatedAt"/>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Capital_Indoor_Stadium"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Skeleton -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Skeleton">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Ski_Cross -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Ski_Cross">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Freestyle_Skiing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Ski_Jumping -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Ski_Jumping">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Slalom -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Slalom">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Skiing_Technical_Events"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Slopestyle -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Slopestyle">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Snowboard"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Snowboard -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Snowboard">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#LocatedAt"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#National_Speed_Skating_Oval"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_M_10000_m -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_M_10000_m">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_M_1000_m -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_M_1000_m">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_M_1500_m -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_M_1500_m">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_M_5000_m -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_M_5000_m">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_M_Team_Pursuit_Quarterfinals_W_500_m -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_M_Team_Pursuit_Quarterfinals_W_500_m">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_W_1000_m -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_W_1000_m">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_W_1500_m -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_W_1500_m">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_W_3000_m -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_W_3000_m">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_W_5000_m -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_W_5000_m">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_W_Team_Pursuit_Quarterfinals_M_500_m -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_W_Team_Pursuit_Quarterfinals_M_500_m">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Sport"/>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Super-G -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Super-G">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Skiing_Speed_Events"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Team_Event -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Team_Event">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Alpine_Skiing_Technical_Events"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Wukesong_Sports_Centre -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Wukesong_Sports_Centre">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Yanqing_National_Alpine_Skiing_Centre -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Yanqing_National_Alpine_Skiing_Centre">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Yanqing_National_Sliding_Centre -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Yanqing_National_Sliding_Centre">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Zhangjiakou_Genting_Snow_Park -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Zhangjiakou_Genting_Snow_Park">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Zhangjiakou_National_Biathlon_Centre -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Zhangjiakou_National_Biathlon_Centre">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Zhangjiakou_National_Cross-Country_Skiing_Centre -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Zhangjiakou_National_Cross-Country_Skiing_Centre">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Zhangjiakou_National_Ski_Jumping_Centre -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Zhangjiakou_National_Ski_Jumping_Centre">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_**_M/W_Mass_Start -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_**_M/W_Mass_Start">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_**_W/M_Team_Pursuit_Finals -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating_**_W/M_Team_Pursuit_Finals">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#Speed_Skating"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#closingceremony -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#closingceremony"/>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#openingceremony -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#openingceremony">
+        <rdf:type rdf:resource="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#OpeningCeremony"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#speed_skating_m1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#speed_skating_m1"/>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#speed_skating_m2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#speed_skating_m2"/>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#speed_skating_m3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#speed_skating_m3"/>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#speed_skating_m4 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#speed_skating_m4"/>
+    
+
+
+    <!-- http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#speed_skating_m5 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/wrzha/ontologies/2023/2/untitled-ontology-5#speed_skating_m5"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

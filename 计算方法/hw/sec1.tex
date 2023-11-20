@@ -1,0 +1,194 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, graphicx, fontspec, listings, algorithm, algpseudocode, algorithmicx, enumerate}
+\usepackage[bookmarks=true, colorlinks, citecolor=blue, linkcolor=black]{hyperref}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\setmainfont{Times New Roman}
+
+\CTEXsetup[format={\Large\bfseries}]{section}
+\lstset{
+ columns=fixed,       
+ numbers=left,                                        % 在左侧显示行号
+ numberstyle=\tiny\color{gray},                       % 设定行号格式
+ frame=none,                                          % 不显示背景边框
+ backgroundcolor=\color[RGB]{245,245,244},            % 设定背景颜色
+ keywordstyle=\color[RGB]{40,40,255},                 % 设定关键字颜色
+ numberstyle=\footnotesize\color{black},           
+ commentstyle=\it\color[RGB]{0,96,96},                % 设置代码注释的格式
+ stringstyle=\rmfamily\slshape\color[RGB]{128,0,0},   % 设置字符串格式
+ showstringspaces=false,                              % 不显示字符串中的空格
+ language=c++,                                        % 设置语言
+}
+
+\title{第一章作业} 
+\author{211300059 郭霄飏}
+\date{\today}
+
+\begin{document}
+\maketitle
+\section*{第一章}
+\section*{2.}
+\noindent 由泰勒展开可得
+\begin{equation}
+    e(x^n) \approx nx^{n-1}(x-x^*) \notag
+\end{equation}
+根据相对误差的定义可得
+\begin{equation}
+    \begin{split}
+        e_r(x^n) &\approx \frac{nx^{n-1}(x-x^*)}{x^n} \\
+        &= \frac{n(x-x^*)}{x^*} \\
+        &= ne_r(x) \\
+        &= 0.02n \notag
+    \end{split}
+\end{equation}
+
+
+\section*{5.}
+\noindent 令 $V = \frac{3}{4} \pi R^3$，可得
+\begin{equation}
+        e^*(V) \approx 4\pi R^2(R^*-R) \notag
+\end{equation}
+由此可得
+\begin{equation}
+    e_r^*(V)=\frac{e^*(V)}{\frac{4}{3}\pi R^3}=\frac{3(R^*-R)}{R^*} = 3e_r^*(R) \notag
+\end{equation}
+所以
+\begin{equation}
+    \begin{split}
+        3e_r^*(R) &\leq 1\% \\
+        e_r^*(R) &\leq \frac{1}{300}
+    \end{split}
+    \notag
+\end{equation}
+
+\section*{8.}
+\noindent
+\begin{equation}
+    \begin{split}
+        \int_{N}^{N+1} \frac{1}{x^2+1} = \arctan (N+1) - \arctan(N) = \arctan(\frac{1}{1+N(N+1)}) \notag
+    \end{split}
+\end{equation}
+
+\section*{13.}
+\noindent 
+令 $y = x - \sqrt{x^2-1}$，则有
+\begin{equation}
+    \begin{split}
+        \xi (f(x^*)) \approx \frac{1}{|y^*|}|y^*-y| \notag
+    \end{split}
+\end{equation}
+由题可知，开根号使用六位有效数字，所以 $\sqrt{30^2 -1} \approx 29.9833 \quad |y^*| = 0.0167$.
+又由教材公式2.2， $|y^*-y| \leq \frac{1}{2} \times 10^{-4}$，所以
+\begin{equation}
+    \xi(f(x^*)) \approx \frac{|y^*-y|}{|y^*|} \leq \cfrac{\frac{1}{2} \times 10^{-4}}{0.0167} \approx 0.003 \notag
+\end{equation}
+若用公式 $-\ln (x+\sqrt{x^2-1})$，同理可得 $|y*|=59.9833$，所以
+\begin{equation}
+    \xi (f(x^*)) \approx \frac{|y^*-y|}{|y^*|}\leq \frac{\frac{1}{2}\times 10^{-4}}{59.8333} \approx 8.34 \times 10^{-7} \notag
+\end{equation}
+
+
+\section*{第二章}
+\section*{1.}
+\noindent
+将右侧与函数 $f(x)=x$的Lagrange插值多项式联系
+\begin{equation}
+    x \approx \sum_{i=0}^{n}x_i l_i(x) = \sum_{i=0}^{n} \left( \prod_{k=0, k \neq i} \frac{x-k}{i-k} \right)i \notag
+\end{equation}
+由插值余项
+\begin{equation}
+    R_n(x)=f(x)-L_n(x)=\frac{x^{(n+1)}(\xi)}{(n+1)!}\omega_{n+1}(x) = 0 \notag
+\end{equation}
+由此可得
+\begin{equation}
+    x = \sum_{i=0}^{n}x_i l_i(x) = \sum_{i=0}^{n} \left( \prod_{k=0, k \neq i} \frac{x-k}{i-k} \right)i \notag
+\end{equation}
+
+\section*{2.}
+\noindent
+拉格朗日插值
+\begin{equation}
+    \begin{split}
+        L_2(x) &= \sum_{k=0}^{n}f_k(x_k)l_0(x) \\
+        &= 0 + (-3) \times \frac{(x-1)(x-2)}{-2\times (-3)} + 4\times \frac{(x-1)(x+1)}{1\times 3} \\
+        &= \frac{5}{6}x^2 + \frac{3}{2}x - \frac{7}{3}
+    \end{split}
+    \notag
+\end{equation}
+
+
+
+
+\section*{4.}
+\noindent
+线性插值多项式为 
+\begin{equation}
+    L_1(x) = \cos x_k \frac{x-x_{k+1}}{x_k-x_{k+1}}+\cos x_{k+1}\frac{x-x_k}{x_{k+1}-x_k} \notag
+\end{equation}
+令 $L'_1(x)$为近似值线性插值多项式，$x_k = \frac{k}{60} \times \frac{\pi}{180} = \frac{k\pi}{10800}$.
+由此可得误差估计
+\begin{equation}
+    \begin{split}
+        |\cos x - L'_1(x)| &= |\cos x - L_1(x) + L_1(x) - L'_1(x)| \\
+        &\leq |\cos x - L_1(x)| + |L_1(x)-L'_1(x)|
+    \end{split}
+    \notag
+\end{equation}
+将误差估计分为两部分分别计算
+\begin{equation}
+    \begin{split}
+        |\cos x - L_1(x)| &= \left| \frac{1}{2}(-\cos \xi)(x-x_k)(x-x_{k+1}) \right| \\
+        &\leq \frac{1}{2} |(x-x_k)(x-x_{k+1})| \\
+        &\leq \frac{1}{2}\times \left( \frac{1}{2} \times \frac{\pi}{10800} \right) ^2 \\
+        &\approx 1.06 \times 10^{-8}
+    \end{split}
+    \notag
+\end{equation}
+\begin{equation}
+    \begin{split}
+        |L_1(x)-L'_1(x)| &= |e(f^*(x_k))|\frac{x_{k+1}-x}{x_{k+1}-x_k} + |e(f^*(x_{k+1}))|\frac{x-x_k}{x_{k+1}-x_k}\\
+        &\leq \max \{|e(f^*(x_k))|, |e(f^*(x_{k+1}))|\} \left( \frac{x_{k+1}-x}{x_{k+1}-x_k} + \frac{x-x_k}{x_{k+1}-x_k} \right) \\
+        &= \max \{|e(f^*(x_k))|, |e(f^*(x_{k+1}))|\}
+    \end{split}
+    \notag
+\end{equation}
+由有效数字的定义可得
+\begin{equation}
+    |e(f^*(x_k))| \leq \frac{1}{2}\times 10^{m_k-4} \notag
+\end{equation}
+所以有
+\begin{equation}
+    \max \{|e(f^*(x_k))|, |e(f^*(x_{k+1}))|\} \leq \max \left\{ \frac{1}{2}\times 10^{m_k-4}, \frac{1}{2}\times 10^{m_{k+1}-4} \right\} = \frac{1}{2}\times 10^{\max \{m_k, m_{k+1}\}-4} \notag
+\end{equation}
+综上所述
+\begin{equation}
+    |\cos x-L'_1(x)| \leq 1.06\times 10^{-8} + \frac{1}{2}\times 10^{\max \{m_k, m_{k+1}\}-4} \notag
+\end{equation}
+在区间 $[0, \frac{\pi}{2}]$上可得
+\begin{equation}
+    |\cos x-L'_1(x)|\leq 1.06 \times 10^{-8} + \frac{1}{2}\times 10^{-5} = 0.50106 \times 10^{-5} \notag
+\end{equation}
+\section*{6.}
+\subsection*{i)}
+\noindent
+函数 $\sum_{j=0}^{n}x_j^kl_j(x)$为函数 $x^k$的Lagarnge插值多项式，同时 $x^k$也为自身的插值多项式，由于插值多项式具有唯一性，所以可知 $\sum_{j=0}^{n}x_j^kl_j(x) \equiv x^k$
+\subsection*{ii)}
+\noindent
+\begin{equation}
+    \begin{split}
+        \sum_{j=0}^{n}(x_j-x)^kl_j(x) &= \sum_{j=0}^{n} \left[ \sum_{i=0}^{n}\tbinom{k}{i}x_j^i(-x)^{(k-i)i_j(x)} \right] \\
+        &= \sum_{j=0}^{n} \sum_{i=0}^{k} \left[ \tbinom{k}{i}x_j^i(-x)^{k-i}i_j(x) \right]\\
+        &= \sum_{i=0}^{k}\left[ \tbinom{k}{i} (-x)^{k-i} \sum_{j=0}^{n}x_j^i l_j(x) \right] \\
+    \end{split}
+    \notag
+\end{equation}
+由 i)得到的结论可知
+\begin{equation}
+    \sum_{j=0}^{n}(x_j-x)^kl_j(x)=\sum_{i=0}^{k} \tbinom{k}{i}(-x)^{k-i}x^i = (x-x)^k \equiv 0 \notag
+\end{equation}
+
+
+\section*{17.}
+
+
+\end{document} 

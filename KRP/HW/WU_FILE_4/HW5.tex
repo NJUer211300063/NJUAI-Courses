@@ -1,0 +1,360 @@
+\documentclass[12pt]{article}
+% \usepackage[margin=1.25in]{geometry}
+\usepackage[inner=2.0cm,outer=2.0cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{color}
+\usepackage{ctex}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{mathtools}
+\usepackage{enumerate}
+
+\def \ALC {\mathcal{ALC}}
+\def \K {\mathcal{K}}
+\def \J {\mathcal{J}}
+\def \T {\mathcal{T}}
+\def \A {\mathcal{A}}
+\def \I {\mathcal{I}}
+
+\newcommand{\homework}[5]{
+	\pagestyle{myheadings}
+	\thispagestyle{plain}
+	\newpage
+	\setcounter{page}{1}
+	\noindent
+	\begin{center}
+		\framebox{
+			\vbox{\vspace{2mm}
+				\hbox to 6.28in { {\bf KRP \hfill #2} }
+				\vspace{6mm}
+				\hbox to 6.28in { {\Large \hfill #1 \hfill} }
+				\vspace{6mm}
+				\hbox to 6.28in { {\it Instructor: {\rm #3} \hfill Name: {\rm #4}, StudentId: {\rm #5}}}
+				\vspace{2mm}}
+		}
+	\end{center}
+	% \markboth{#4 -- #1}{#4 -- #1}
+	\vspace*{4mm}
+}
+
+
+\begin{document}
+\large
+	%==========================Put your name and id here==========================
+	\homework{Homework 5}{Spring 2023}{YiZheng Zhao}{张运吉}{211300063}
+    \paragraph{Question 1. CWA and OWA, querying without TBox}~{}
+    \begin{enumerate}
+        \item [(1)]
+        \begin{align*}
+            \text{DL notation }&: \text{ Album(Fantasy)} \\
+            \text{FOL notation }&: \text{ Album(Fantasy)} \\
+            \text{DL notation }&: \neg \text{StudioAlbum } \sqcup \neg \text{LiveAlbum(2004\_Incomparable\_Concert)} \\
+            \text{FOL notation }&: \neg \text{StudioAlbum(2004\_Incomparable\_Concert)} \vee \\ &\neg \text{LiveAlbum(2004\_Incomparable\_Concert)} \\
+            \text{DL notation }&: \exists\text{hasFriend.}\top\text{(Jay\_Chou)} \\
+            \text{FOL notation }&: \exists \text{x.(hasFriend(Jay\_Chou, x)} \\
+            \text{DL notation }&: \exists\text{hasFriend.}\exists\text{dancesWith.Song(Jay\_Chou)}\\
+            \text{FOL notation }&: \exists \text{x.(hasFriend(Jay\_Chou, x)} \wedge \exists \text{y.(dancesWith(x, y)} \wedge \text{Song(y)))} \\
+            \text{DL notation }&: \exists\text{hasFriend.\{Jay
+            \_Chou\}(Vincent\_Fang)}\\
+            \text{FOL notation }&: \text{hasFriend(Vincent\_Fang, Jay\_Chou)} 
+        \end{align*}
+        \item [(2)]
+        (1).No (2).Yes (3).No (4).Yes (5).Yes (6).Yes (7).Yes (8).Yes (9).Yes (10).No \\
+        (11).No (12).No (13).No (14).Yes (15).No (16).No (17).Yes (18).No (19).No \\ (20).No
+        (21).Yes (22).Yes (23).No (24).No (25).Yes (26).Yes
+        \item[(3)]
+        (1).Don't know (2).Yes (3).Don't know (4).Don't know (5).Don't know \\ 
+        (6).Don't know (7).Don't know (8).Yes (9).Yes (10).Don't know
+        (11).Don't know \\
+        (12).Don't know (13).Don't know (14).Yes (15).Don't know (16).Don't know \\
+        (17).Yes (18).Don't know (19).Don't know (20).Don't know (21).  Don't know \\
+        (22).Don't know (23).Don't know (24).Don't know (25).Don't know(26)Don't know
+        \item [(4)]
+        \textbf{For CWA}: \\
+        answer(F1(x), Dmusic) = \{ Jay\_Chou, Eason\_Chan \} \\
+        answer(F2(x), Dmusic) = \{ Will\_Liu, Black\_Cat, The\_Eight\_Dimensions, Secret, Together, Ta-yu\_Lo, Jolin\_Tsai, Vincent\_Fang, Hidden\_Track, Herbalist\_Manual, Jay, Common\_Jasmin\_Orange, Initial\_D, Elimination, Fantasy, Pearl\_of\_the\_Orient, 2004\_Incomparable\_Concert, Rewind \} \\
+        answer(F3(x, y), Dmusic) = \{(Jay\_Chou, Vincent\_Fang), (Jay\_Chou, Will\_Liu)\} \\
+        answer(F4(x), Dmusic) = \{ Vincent\_Fang \}
+        \item[(5)]
+        \textbf{For OWA}: \\
+        certanswer(F1(x), Dmusic) = \{ Jay\_Chou, Eason\_Chan \} \\
+        certanswer(F2(x), Dmusic) = $\emptyset$ \\
+        certanswer(F3(x, y), Dmusic) = \{ (Jay\_Chou, Vincent\_Fang), (Jay\_Chou, Will\_Liu) \} \\
+        certanswer(F4(x), Dmusic) = $\emptyset$
+    \end{enumerate}
+
+
+    \newpage
+    \paragraph{Question 2. Querying with TBox}~{}
+    \\
+
+	\begin{enumerate}
+        \item [(1)]
+        (1).Yes (2).Yes (3).No (4).Yes (5).Don't know (6).Yes (7).Yes (8).Yes (9).Yes \\
+        (10).Don't know (11).Don't know (12).No (13).Yes (14).Yes (15).Don't know \\
+        (16).Yes (17).Yes (18).Don't know (19).No (20).Don't know (21).Don't know \\
+        (22).Don't know (23).Don't know (24).Don't know (25).Don't know
+        (26)Don't know
+        \item [(2)]
+        Song(Herbalist\_Manual) \\
+        Song(Elimination) \\
+        Singer(Jay\_Chou) \\
+        Lyricist(Vincent\_Fang) \\
+    \end{enumerate}
+
+    \newpage
+    \paragraph{Question 3. Computing $\mathcal{I}_{\mathcal{T}, \mathcal{A}}$ in $\mathcal{EL}$ Consider the $\mathcal{EL}$ TBox $\mathcal{T}$ :}~{}
+    \\
+
+    \begin{enumerate}
+        \item [(1)]
+        We initialize $\boldmath{S}$ and $\boldmath{R}$ as follow: \par
+        $\boldsymbol{S}(Monster)=\{Captain, LeadGuitarist \}$ \par
+        $\boldsymbol{S}(Ashin)=\{Vocalist\}$ \par
+        $\boldsymbol{S}(Masa)=\{Bassist\}$ \par
+        $\boldsymbol{S}(Ming)=\{Drummer\}$ \par
+        $\boldsymbol{S}(Stone)=\{RhythmGuitarist\}$ \par
+        $\boldsymbol{S}(Marday)=\{Band\}$ \par
+        $\boldsymbol{S}(Amuse)=\emptyset$ \par
+        $\boldsymbol{S}\left(d_{A}\right)=\{A\} \text { for all } d_{A} \in \Delta^{\mathcal{I}_{\T, \A}}$ \par
+        $\boldsymbol{R}(managed\_by)=\{(Marday, Amuse)\}$ \par
+        $\boldsymbol{R}(captained\_by)=\emptyset$ \par
+        $\boldsymbol{R}(plays\_for)=\emptyset$ \par
+        Update $\boldsymbol{S}$ and $\boldsymbol{R}$ using simpleR, conjR, rightR and leftR, we get: \par
+        $\boldsymbol{S}(Monster) = \{Captain, LeadGuitarist, Guitarist\}$ \\
+        $\boldsymbol{S}(Stone) = \{RhythmGuitarist, Guitarist\}$ \\
+        $\boldsymbol{S}(d_{LeadGuitarist}) = \{d_{LeadGuitarist}, d_{Guitarist}\}$ \\
+        $\boldsymbol{S}(d_{RhythmGuitarist}) = \{d_{RhythmGuitarist}, d_{Guitarist}\}$ \\
+        $\boldsymbol{R}(managed\_by) = \{(Marday, Amuse), (Marday, d_{Manager}), (d_{Band}, d_{Manager}), \\ (d_{Manager}, d_{Manager})\}$ \\
+        $\boldsymbol{R}(plays\_for) = \{(Ashin, d_{Band}), (Monster, d_{Band}), (Masa, d_{Band}), (Stone, d_{Band}), \\ (Ming, d_{Band}),
+        (d_{Guitarist}, d_{Band}), (d_{Bassist}, d_{Band}), (d_{Vocalist}, d_{Band}), (d_{Drummer}, d_{Band})\}$
+        $\boldsymbol{R}(captained\_by) = \{(Mayday, d_{Captain}), (d_{Band}, d_{Captain})\}$ \\
+        The intepretation $\I_{\T, \A}$ is as follow: 
+        \begin{align*}
+            \Delta^{\mathcal{I}} &= \{Monster, Ashin, Masa, Stone, Ming, Mayday, Amuse, d_{Vocalist}, d_{Guitarist},  \\ & d_{Bassist}, d_{Drummer}, d_{LeadGuitarist}, d_{RhythmGuitarist}, d_{Band}, d_{Manager}, d_{Captain}\}
+        \end{align*}
+        $Guitarist^{\I_{\T, \A}}= \{Monster, Stone, d_{LeadGuitarist}, d_{RhyrhmGuitarist}, d_{Guitarist}\}$ \\
+        $Bassist^{\I_{\T, \A}}= \{Masa, d_{Bassist}\}$ \\
+        $Drummer^{\I_{\T, \A}}= \{Ming, d_{Drummer}\}$ \\
+        $Vocalist^{\I_{\T, \A}} = \{Ashin, d_{Vocalist}\}$ \\
+        $LeadGuitarist^{\I_{\T, \A}} = \{Monster, d_{Leadguitarist}\}$ \\
+        $RhythmGuitarist^{\I_{\T, \A}}= \{Stone, d_{RhythmGuitarist}\}$ \\
+        $Band^{\I_{\T, \A}}= \{Marday, d_{Band}\}$ \\
+        $Manager^{\I_{\T, \A}}= \{d_{Manager}\}$ \\
+        $Captain^{\I_{\T, \A}}= \{Monster, d_{Captain}\}$ \\
+        $managed\_by^{\I_{\T, \A}}= \{(Marday, Asume), (Marday, d_{Manager}, (d_{Band}, d_{Manager}), \\ (d_{Manager}, d_{Manager})\}$ \\
+        $captained\_by^{\I_{\T, \A}}= \{(Marday, d_{Captain}), (d_{Band}, d_{Captain})\}$ \\
+        $plays\_for^{\I_{\T, \A}}= \{(Monster, d_{Band}), (Masa, d_{Band}), (Ashin, d_{Band}), (Stone, d_{Band}), \\ (Ming, d_{Band}), (d_{Guitarist}, d_{Band}), (d_{Bassist}, d_{Band}), (d_{Vocalist}, d_{Band}), (d_{Drummer}, d_{Band})\}$
+        \item[(2)]
+        \begin{enumerate}[i.]
+            \item Yes. \\
+            Because $(Ashin, d_{Band}) \in plays\_for^{\I_{\T, \A}}$ and $d_{Band} \in Band^{\I_{\T, \A}}$.
+            \item No. 
+            \item Yes. \\
+            Because $(Monster, d_{Band}) \in plays\_for^{\I_{\T, \A}}, (d_{Band}, d_{Captain}) \in captained\_by^{\I_{\T, \A}}$ and $d_{Captain} \in Captain^{\I_{\T, \A}}$. 
+            \item Yes. \\
+            Because $(Ming, d_{Band}) \in plays\_for^{\I_{\T, \A}}, (d_{Band}, d_{Manager}) \in managed\_by^{\I_{\T, \A}}$ and $d_{Manager} \in Manager^{\I_{\T, \A}}$. 
+        \end{enumerate}
+        \item[(3)] 
+        \begin{enumerate}[i.]
+            \item $certainswer(F(x, y), (\T , \A)) = \{Monster, Ashine, Ming, Stone, Masa\} \times \{Monster, Ashine, Ming, Stone, Masa\}$ \\
+            $answer(F(x, y), \I_{\T, \A}) = (Guitarist^{\I_{\T, \A}} \cup Vocalist^{\I_{\T, \A}}\cup Drummer^{\I_{\T, \A}}\cup Bassist^{\I_{\T, \A}}) \times (Guitarist^{\I_{\T, \A}} \cup Vocalist^{\I_{\T, \A}} \cup Drummer^{\I_{\T, \A}}\cup Bassist^{\I_{\T, \A}}) $ ($"\times"$ is cartesian product)
+            \item $certainswer(F, (\T , \A)) = ”No”$. \\
+            $answer(F, \I_{\T, \A}) = ”Yes”$.
+        \end{enumerate}
+    \end{enumerate}
+
+
+
+
+    \newpage
+    \paragraph{Question 4. SQL and Conjunctive Queries}~{}
+    \\
+    \begin{enumerate}
+        \item [(1)]
+        \begin{align*}
+            \text{ID}^{\mathcal{I}_\mathcal{D}} &= \{2101, 2102, 2103, 2104, 30000150, 30000160, 30000170\} \\
+            \text{Name}^{\mathcal{I}_{\mathcal{D}}} &= \{ \text{Jay\_Chou, Jolin\_Tsai, Stefanie\_Sun, Ta-yu\_Lo} \} \\
+            \text{StudentID}^{\mathcal{I}_{\mathcal{D}}} &= \{ 2101, 2102, 2103, 2104 \} \\
+            \text{Since}^{\mathcal{I}_{\mathcal{D}}} &= \{ 2020, 2021 \} \\
+            \text{CourseID}^{\mathcal{I}_{\mathcal{D}}} &= \{ 30000150, 30000160, 30000170 \} \\
+            \text{Title}^{\mathcal{I}_{\mathcal{D}}} &= \{ ML, KRP, NLP \} \\
+            \text{Person}^{\mathcal{I}_{\mathcal{D}}} &= \{ (2101, Jay\_Chou), (2102, Jolin\_Tsai), \\& (2103, Stefanie\_Sun), (2104, Ta-yu\_Lo) \} \\
+            \text{Enrollment}^{\mathcal{I}_{\mathcal{D}}} &= \{ (2102, 2020), (2103, 2021), (2104, 2020) \} \\
+            \text{Attendance}^{\mathcal{I}_{\mathcal{D}}} &= \{ (2101, 30000160), \\ &(2102, 30000160), (2102, 30000170), (2103, 30000150) \} \\
+            \text{Course}^{\mathcal{I}_{\mathcal{D}}} &= \{ (30000150, ML), (30000160, KRP), (30000170, NLP) \}
+        \end{align*}
+        \item [(2)]
+        $F_a(x, y) = Person(x, y)$ \\
+        $F_b(x) = \exists y.\exists z.(Person(y, x) \wedge Attendance(y, z) \wedge Course(z, KRP))$ \\
+        $F_c(x) = \exists y.\exists z.(Person(y, x) \wedge Enrollment(y, z) \wedge \forall c.\neg attendance(y, c))$
+
+$F_a(x, y)$ and $F_b(x)$ are conjunctive queries but $F_c(x)$ is not conjunctive query.
+        \item [(3)]
+        Answer $Q$ in the context of $\mathcal{D}$: \\
+answer(Qa, D) = \{ (2101, Jay\_Chou), (2102, Jolin\_Tsai), (2103, Stefanie\_Sun), (2104, Ta-yu\_Lo) \} \\
+answer(Qb, D) = \{ Jay\_Chou, Jolin\_Tsai \} \\
+answer(Qc, D) = \{ Ta-yu\_Lo \} \\
+Answer $f_Q$ in the context of $\I_\mathcal{D}$: \\
+answer(Fa, $\I_\mathcal{D}$) = \{ (2101, Jay\_Chou), (2102, Jolin\_Tsai), (2103, Stefanie\_Sun), (2104, Ta-yu\_Lo) \} \\
+answer(Fb, $\I_\mathcal{D}$) = \{ Jay\_Chou, Jolin\_Tsai \} \\
+answer(Fc, $\I_\mathcal{D}$) = \{ Ta-yu\_Lo \}
+    \end{enumerate}
+
+    \newpage
+    \paragraph{Question 5. Certain Answers in Diferent Contexts}~{}
+    \\
+    \begin{enumerate}
+        \item [(1)]
+        1. $\emptyset$  2. $\emptyset$  3. "No"  4. $\emptyset$
+        \item [(2)]
+        1. \{ (Jolin\_Tsai, Stefanie\_Sun), (Stefanie\_Sun, Jay\_Chou), (Stefanie\_Sun, Stefanie\_Sun) \} \\
+        2. \{ Jay\_Chou, Stefanie\_Sun \} \\
+        3. "Yes" \\
+        4. \{ (Jay\_Chou, Jolin\_Tsai), (Stefanie\_Sun, Jay\_Chou), (Jolin\_Tsai, Jolin\_Tsai), (Jolin\_Tsai, Stefanie\_Sun), (Stefanie\_Sun, Stefanie\_Sun) \}
+    \end{enumerate}
+
+    \newpage
+    \paragraph{Question 6. Reasoning in $\mathcal{EL}$}~{}
+    \\
+
+    We initialize $\boldsymbol{S}$ and $\boldsymbol{R}$ :\\
+    $$
+    \begin{array}{ll}
+    \boldsymbol{S}(a)=\emptyset \\ \boldsymbol{S}(b)=\{X\} \\
+    \boldsymbol{S}\left(d_X\right)=\{X\} \\ \boldsymbol{S}\left(d_Y\right)=\{Y\} \\
+    \boldsymbol{R}(r)=\{(a, b)\} &
+    \end{array}
+    $$ \par
+    Update $\boldsymbol{R}(r)$ using rightR: 
+    $$
+    \boldsymbol{R}(r)=\left\{(a, b),\left(b, d_Y\right),\left(d_X, d_Y\right)\right\}
+    $$ \par
+    Again, update $\boldsymbol{R}(r)$ using rightR:
+    $$
+    \boldsymbol{R}(r)=\left\{(a, b),\left(b, d_Y\right),\left(d_X, d_Y\right),\left(d_Y, d_Y\right)\right\}
+    $$ \par
+    We can get the interpretation $\mathcal{I}_{\mathcal{T}, \mathcal{A}}$ as follow:
+    $$
+    \begin{aligned}
+    & \Delta^{\mathcal{I}_{\mathcal{T}, \mathcal{A}}}=\left\{a, b, d_X, d_Y\right\} \\
+    & X^{\mathcal{I}_{\mathcal{T}, \mathcal{A}}}=\{b, d_X\} \\
+    & Y^{\mathcal{I}_{\mathcal{T}, \mathcal{A}}}=\left\{d_Y\right\} \\
+    & r^{\mathcal{I}_{\mathcal{T}, \mathcal{A}}}=\left\{(a, b),\left(b, d_Y\right),\left(d_X, d_Y\right),\left(d_Y, d_Y\right)\right\}
+    \end{aligned}
+    $$
+
+
+    \newpage
+    \paragraph{Question 7. Ontology-Mediated Query Answering}~{}
+    \\
+
+    \textbf{Don' t know}.
+    \par
+    The answer is not "No" because there is a model of $(\T, \A)$ in which clash is non-empty. See as follow: \par
+    $$
+    \begin{aligned}
+    & \Delta^{\mathcal{I}}=\{0,1,2,3\}, \\
+    & r^{\mathcal{I}}=\{(0,1),(1,2),(2,3),(3,0)\} \\
+    & \text { green }{ }^{\mathcal{I}}=\{0,1,2\} \\
+    & \text { red }^{\mathcal{I}}=\{3\} \\
+    & \text { clash }^{\mathcal{I}}=\{2, 3\}
+    \end{aligned}
+    $$ \par
+    The answer is not "Yes" because there is a model of $(\T, \A)$ in which clash is empty. See as follow: \par
+    $$
+    \begin{aligned}
+    & \Delta^{\mathcal{I}}=\{0,1,2,3\}, \\
+    & r^{\mathcal{I}}=\{(0,1),(1,2),(2,3),(3,0)\} \\
+    & \text { green }{ }^{\mathcal{I}}=\{0,1,2,3\} \\
+    & \text { red }^{\mathcal{I}}=\emptyset \\
+    & \text { clash }^{\mathcal{I}}=\emptyset
+    \end{aligned}
+    $$ \par
+    Therefore, the answer is "Don' t know".
+    
+
+    \newpage
+    \paragraph{Question 8. Σ-Reducts in Acyclic $\mathcal{EL}$}~{}
+    \\
+    \begin{enumerate}
+        \item [(1)]    \textbf{Yes}, there always exists a $\Sigma$-reduct $\mathcal{T}_{1}$ for any given acyclic $\mathcal{EL}$ ontology $\mathcal{T}_{2}$ and any $\Sigma \subseteq \operatorname{sig}\left(\mathcal{T}_{2}\right)$
+        \item [(2)]
+        \textbf{Algorithm}: \\
+        Compute\_$\Sigma$-reduct($\mathcal{T}_{2}$, $\Sigma$) : \\
+        1. Let $\mathcal{T}_{1} = \emptyset$. \\
+        2. For all concept axioms and role axioms, if its signature are subset of $\Sigma$ to $\mathcal{T}_{1}$ then add it to $\mathcal{T}_{1}$. \\
+        3. For each  $C \sqsubseteq$ D in $\mathcal{T}_{1}$: If $\mathcal{T}_{2} \not \models C \sqsubseteq D$, remove the axiom $C \sqsubseteq D$ from $\mathcal{T}_{1}$, otherwise do nothing. \\
+        4. return $\mathcal{T}_{1}$.  \\
+        \textbf{Termination}:\\
+        The algorithm terminates because there is a finite number of concept and role axioms in $\mathcal{T}_2$, and at each iteration, either an axiom is added to $\mathcal{T}_1$ or removed from $\mathcal{T}_1$. Since the number of axioms in $\mathcal{T}_1$ is nonincreasing, the algorithm eventually terminates.
+        \\
+        \textbf{Soundness}:\\
+        The algorithm only adds concept and role axioms from $\mathcal{T}_2$ whose signatures are subsets of $\Sigma$ to $\mathcal{T}_1$. Therefore, the resulting $\Sigma$-reduct $\mathcal{T}_1$ satisfies the condition $\operatorname{sig}(\mathcal{T}_1) \subseteq \Sigma$. Additionally, for each concept subsumption axiom $C \sqsubseteq D$ in $\mathcal{T}_1$, if $\mathcal{T}_1 \models C \sqsubseteq D$, then $\mathcal{T}_2 \models C \sqsubseteq D$ by the construction of $\mathcal{T}_1$.
+        \\
+        \textbf{Completeness}:\\
+        The algorithm iteratively checks each concept subsumption axiom $C \sqsubseteq D$ in $\mathcal{T}_1$ and removes it if $\mathcal{T}_2 \not\models C \sqsubseteq D$. Therefore, if $\mathcal{T}_1 \models C \sqsubseteq D$, then $\mathcal{T}_2 \models C \sqsubseteq D$. Thus, the algorithm is complete.
+    \end{enumerate}
+
+
+    \newpage
+    \paragraph{Question 9 (with 1 bonus mark). Simpleness of ABox}~{}
+    \\
+
+    This \textbf{ doesn't affect }the data complexity results because the lower bound and upper bound do not change. 
+
+    Lower bound:
+
+    - $\mathcal{ALC}$: coNP-hard \par
+    - $\mathcal{EL}$: P-hard \par
+    - $\text{DL-Lite}$: AC$^0$ \par
+
+    Because questions like non-3-colorability and path system accessibility can be still reduced into $\mathcal{ALC}$ and $\mathcal{EL}$ CQ-entailment problem by the same way with simple ABoxes.
+
+    This doesn't affect the upper bound of the data complexity results, too.
+
+    Upper bound:
+
+    - $\mathcal{ALC}$: coNP-complete, because we can still use tableau algorithm to solve the problem. \par
+    - $\mathcal{EL}$: P-complete, because we can reduce it to Datalog query entailment with PTime data complexity. \par
+    - $\text{DL-Lite}$: AC$^0$, because we can reduce it to entailment of their FO-rewriting $q_{\mathcal{T}}$. \par
+
+    So this doesn't affect the data complexity result.
+
+    \newpage
+    \paragraph{Question 10 (with 1 bonus mark). $K$-Colorability}~{}
+    \\
+
+    \textbf{Yes, we can. } \par
+
+    We can consider the following $\mathcal{ALC}$ TBox and Boolean CQ:
+
+    $\mathcal{T} = \{ \top \sqsubseteq \underset{C \in \text{colors}}{\Large\sqcup}C, C \sqcap \exists r.C \sqsubseteq D \text{ for } C \in \text{colors} \}$
+
+    $q = \exists x.D(x)$
+
+    And we translated the input graph $\boldsymbol{G} = (V, E)$ into the ABox:
+
+    $\mathcal{A} = \{ (u, v):r | \{ u, v \} \in E \}$
+
+    Then it is equal to prove that $(\mathcal{T}, \mathcal{A}) \models q$ iff $\mathcal{A}$ is not k-colourable.
+
+    Because 3-colorability is NP-hard, thus k-colorability is NP-hard too. So we can know that the query entailment problem for conjunctive queries is coNP-hard w.r.t data complexity in $\mathcal{ALC}$.
+
+    \textbf{But if we let $k$ is fixed, the result depends on the value of $k$}.
+    
+    \begin{itemize}
+        \item k = 1. \\
+        $\boldsymbol{G}$ is 1-colorable iff there's no edge between any nodes. This can be checked in PTime.
+        \item k = 2. \\
+        $\boldsymbol{G}$ is 2-colorable iff $\boldsymbol{G}$ can be devided into two disjoint sets, i.e. $\boldsymbol{G}$ is a bipartite graph. This can also be checked in PTime.
+        \item k = 3. \\
+        3-colorability in $\boldsymbol{G}$ is NP-hard and it can prove that the query entailment problem for conjunctive queries is coNP-hard w.r.t data complexity in $\mathcal{ALC}$.
+
+    \end{itemize}
+
+\end{document}

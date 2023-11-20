@@ -1,0 +1,165 @@
+\documentclass[a4paper]{article}
+% \usepackage[margin=1.25in]{geometry}
+\usepackage[inner=2.0cm,outer=2.0cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{ctex}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{mathtools}
+\usepackage{enumerate}
+
+\newcommand{\homework}[5]{
+	\pagestyle{myheadings}
+	\thispagestyle{plain}
+	\newpage
+	\setcounter{page}{1}
+	\noindent
+	\begin{center}
+		\framebox{
+			\vbox{\vspace{2mm}
+				\hbox to 6.28in { {\bf 计算方法 \hfill #2} }
+				\vspace{6mm}
+				\hbox to 6.28in { {\Large \hfill #1 \hfill} }
+				\vspace{6mm}
+				\hbox to 6.28in { {\it Instructor: {\rm #3} \hfill Name: {\rm #4}, StudentId: {\rm #5}}}
+				\vspace{2mm}}
+		}
+	\end{center}
+	% \markboth{#4 -- #1}{#4 -- #1}
+	\vspace*{4mm}
+}
+
+\newenvironment{solution}
+{\color{blue} \paragraph{Solution.}}
+{\newline \qed}
+
+\begin{document}
+\large
+	%==========================Put your name and id here==========================
+	\homework{Homework 4}{Spring 2023}{Lijun Zhang}{张运吉}{211300063}
+	
+{\centering\section*{第八章}}
+
+\paragraph{第1题}~{}
+\\
+
+\begin{enumerate}
+    \item [(1)]
+    系数矩阵
+    \begin{equation}
+        \boldsymbol{A} =\left[\begin{array}{rrr}5 & 2 & 1 \\ -1 & 4 & 5 \\ 2 & -3 & 10\end{array}\right] \nonumber
+    \end{equation}
+    是严格对角占优矩阵，所以雅可比迭代法与高斯-赛德尔迭代法均收敛.
+    \item [(2)]
+    \begin{itemize}
+        \item 雅可比迭代法 \\
+        迭代公式为：
+        \begin{equation}
+            \left\{\begin{array}{l}x_{1}^{(k+1)}=-\frac{2}{5} x_{2}^{(k)}-\frac{1}{5} x_{3}^{(k)}-\frac{12}{5} \\ x_{2}^{(k+1)}=\frac{1}{4} x_{1}^{(k)}-\frac{1}{2} x_{3}^{(k)}+5 \\ x_{3}^{(k+1)}=-\frac{1}{5} x_{1}^{(k)}+\frac{3}{10} x_{2}^{(k)}+\frac{3}{10}\end{array} \nonumber \right.
+        \end{equation}
+        取$\boldsymbol{x}^{(0)} = (1, 1, 1)^{\mathrm{T}}$, 迭代18次后，有
+        $\left\|\boldsymbol{x}^{(k+1)}-\boldsymbol{x}^{(k)}\right\|_{\infty}<10^{-4}$, 此时 $$\boldsymbol{x}^{(18)}=(-3.9999964,2.9999739,1.9999999)^{\mathrm{T}}$$
+        \item 高斯-赛德尔迭代法\\
+        \begin{equation}
+            \left\{\begin{array}{l}x_{1}^{(k+1)}=-\frac{2}{5} x_{2}^{(k)}-\frac{1}{5} x_{3}^{(k)}-\frac{12}{5} \\ x_{2}^{(k+1)}=\frac{1}{4} x_{1}^{(k+1)}-\frac{1}{2} x_{3}^{(k)}+5 \\ x_{3}^{(k+1)}=-\frac{1}{5} x_{1}^{(k+1)}+\frac{3}{10} x_{2}^{(k+1)}+\frac{3}{10}\end{array} \nonumber \right.
+        \end{equation}
+        取$\boldsymbol{x}^{(0)} = (1, 1, 1)^{\mathrm{T}}$, 迭代8次后，有
+        $\left\|\boldsymbol{x}^{(k+1)}-\boldsymbol{x}^{(k)}\right\|_{\infty}<10^{-4}$, 此时 $$\boldsymbol{x}^{(8)}=(-4.000036,2.999985,2.000003)^{\mathrm{T}}$$
+    \end{itemize}
+\end{enumerate}
+
+
+\newpage
+\paragraph{第5题}~{}
+\\
+
+\begin{enumerate}
+    \item [(1)]
+    \begin{itemize}
+        \item 雅可比法迭代法 \\
+        迭代公式的矩阵形式:$$\boldsymbol{x}^{(k+1)} = \boldsymbol{B}\boldsymbol{x}^{(k)} + \boldsymbol{b}$$
+        其中
+        \begin{equation}
+            \boldsymbol{B} =\left[\begin{array}{rrr}0 & -0.4 & -0.4 \\ -0.4 & 0 & -0.8 \\ -0.4 & -0.8 & 0\end{array}\right] \nonumber
+        \end{equation}
+        $\left|\lambda \boldsymbol{E}-\mathbf{B}\right|=(\lambda-0.8)\left(\lambda^{2}+0.8 \lambda-0.32\right)$, $\rho\left(\boldsymbol{B}\right)=1.1>1$ \\
+        $\therefore$雅可比迭代法不收敛.
+        \item 高斯赛德尔迭代法 \\
+        迭代公式的矩阵形式:$$\boldsymbol{x}^{(k+1)} = \boldsymbol{G}\boldsymbol{x}^{(k)} + \boldsymbol{f}$$
+        其中
+        \begin{equation}
+            \boldsymbol{G}=(\boldsymbol{D}-\mathbf{L})^{-1} \mathbf{U}=\left[\begin{array}{rrr}0 & -0.4 & -0.4 \\ 0 & 0.16 & -0.64 \\ 0 & 0.032 & 0.672\end{array}\right] \nonumber
+        \end{equation}
+        $\rho\left(\boldsymbol{G}\right) \leqslant\left\|\boldsymbol{G}\right\|_{\infty}=0.8<1$ \\
+        $\therefore$ 高斯-赛德尔迭代法收敛.
+    \end{itemize}
+    \item [(2)]
+    \begin{itemize}
+        \item 雅可比法迭代法 \\
+        迭代公式的矩阵形式:$$\boldsymbol{x}^{(k+1)} = \boldsymbol{B}\boldsymbol{x}^{(k)} + \boldsymbol{b}$$
+        其中
+        \begin{equation}
+            \boldsymbol{B} =\left[\begin{array}{rrr}0 & -2 & 2 \\ -1 & 0 & -1 \\ -2 & -2 & 0\end{array}\right] \nonumber
+        \end{equation}
+        $\left|\lambda \boldsymbol{E}-\mathbf{B}\right|=\lambda^3$, $\rho\left(\boldsymbol{B}\right)=0 < 1$ \\
+        $\therefore$雅可比迭代法收敛.
+        \item 高斯赛德尔迭代法 \\
+        迭代公式的矩阵形式:$$\boldsymbol{x}^{(k+1)} = \boldsymbol{G}\boldsymbol{x}^{(k)} + \boldsymbol{f}$$
+        其中
+        \begin{equation}
+            \boldsymbol{G}=(\boldsymbol{D}-\mathbf{L})^{-1} \mathbf{U}=\left[\begin{array}{rrr}0 & -2 & 2 \\ 0 & 2 & -3 \\ 0 & 0 & 2\end{array}\right] \nonumber
+        \end{equation}
+        $\mid \lambda \boldsymbol{E}-\boldsymbol{G} \mid=\lambda(\lambda-2)^{2}, \quad \rho\left(\boldsymbol{G}\right)=2>1$ \\
+        $\therefore$ 高斯-赛德尔迭代法不收敛.
+    \end{itemize}
+\end{enumerate}
+
+\paragraph{第9题}~{}
+\\
+
+SOR法迭代公式:
+\begin{equation}
+    \left\{\begin{array}{l}x_{1}^{(k+1)}=x_{1}^{(k)}+\omega\left(\frac{1}{4}-x_{1}^{(k)}+\frac{1}{4} x_{2}^{(k)}\right) \\ x_{2}^{(k+1)}=x_{2}^{(k)}+\omega\left(1+\frac{1}{4} x_{1}^{(k+1)}-x_{2}^{(k)}+\frac{1}{4} x_{3}^{(k)}\right) \\ x_{3}^{(k+1)}=x_{3}^{(k)}+\omega\left(-\frac{3}{4}+\frac{1}{4} x_{2}^{(k+1)}-x_{3}^{(k)}\right)\end{array} \nonumber\right.
+\end{equation} \par
+取$\boldsymbol{x}^{(0)} = (0, 0, 0)^{\mathrm{T}}$. \par
+$\omega = 1.03$, 迭代5次达到精度要求.
+$$\boldsymbol{x}^{(5)}=(0.5000043,0.1000002,-0.4999999)^{\mathrm{T}}$$ \par
+$\omega = 1$, 迭代6次达到精度要求.
+$$\boldsymbol{x}^{(6)}=(0.5000038,0.1000002,-0.4999995)^{\mathrm{T}}$$ \par
+$\omega = 1.1$, 迭代6次达到精度要求.
+$$\boldsymbol{x}^{(6)}=(0.5000035,0.9999989,-0.5000003)^{\mathrm{T}}$$ \par
+
+
+\paragraph{第14题}~{}
+\\
+
+$\operatorname*{det}(\boldsymbol{A}) = 2a^3 - 3a^2 + 1 = (1+2a)(1-a)^2$.\par
+当$-\frac{1}{2} < a < 1$时， $\operatorname*{det}(\boldsymbol{A}) > 0$, 所以$\boldsymbol{A}$是正定的. \par
+雅可比迭代矩阵:
+\begin{equation}
+    \begin{aligned} \boldsymbol{G} & =\left[\begin{array}{rrr}0 & -a & -a \\ -a & 0 & -a \\ -a & -a & 0\end{array}\right] \\ \mid\left(\lambda \boldsymbol{E}-\boldsymbol{G}\right)\mid & =\left[\begin{array}{rrr}\lambda & a & a \\ a & \lambda & a \\ a & a & \lambda\end{array} \right]=\lambda^{3}-3 \lambda a^{2}+2 a^{3}. \\ & =(\lambda-a)^{2}(\lambda+2 a)\end{aligned} \nonumber
+\end{equation}\par
+$\rho\left(\boldsymbol{G}\right)=\mid 2 a \mid$ \par
+$\therefore -\frac{1}{2} < a < \frac{1}{2}$时， $\rho\left(\boldsymbol{G}\right) <  1$, 雅可比迭代法收敛.
+\newpage
+
+{\centering\section*{第九章}}
+
+\paragraph{第4题}~{}
+\\
+
+特征不等式$f(\lambda) = -(\lambda-4)^2(\lambda-2)$ \par
+原矩阵的特征值$\lambda_1 = \lambda_2 = 4, \lambda_3 = 2$, 所以可以使用幂等法求解. \par
+取$\boldsymbol{u}_0 = (1, 1, 1)^{\mathrm{T}}$, 可得: 
+\begin{equation}
+    \begin{array}{lll}\boldsymbol{v}_{1}=(4,4,4)^{\mathrm{T}}, & \boldsymbol{u}_{1}=(1,1,1)^{\mathrm{T}}, & \max \left(\boldsymbol{v}_{1}\right)=4 \\ \boldsymbol{v}_{2}=(4,4,4)^{\mathrm{T}}, & \boldsymbol{u}_{2}=(1,1,1)^{\mathrm{T}}, & \max \left(\boldsymbol{v}_{2}\right)=4\end{array}\nonumber
+\end{equation} \par
+所以与特征值4对应的特征向量为$(1, 1, 1)^{\mathrm{T}}$.
+
+
+\end{document}

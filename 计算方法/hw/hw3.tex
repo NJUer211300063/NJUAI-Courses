@@ -1,0 +1,415 @@
+\documentclass[a4paper]{article}
+% \usepackage[margin=1.25in]{geometry}
+\usepackage[inner=2.0cm,outer=2.0cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{ctex}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{mathtools}
+\usepackage{enumerate}
+
+\newcommand{\homework}[5]{
+	\pagestyle{myheadings}
+	\thispagestyle{plain}
+	\newpage
+	\setcounter{page}{1}
+	\noindent
+	\begin{center}
+		\framebox{
+			\vbox{\vspace{2mm}
+				\hbox to 6.28in { {\bf 计算方法 \hfill #2} }
+				\vspace{6mm}
+				\hbox to 6.28in { {\Large \hfill #1 \hfill} }
+				\vspace{6mm}
+				\hbox to 6.28in { {\it Instructor: {\rm #3} \hfill Name: {\rm #4}, StudentId: {\rm #5}}}
+				\vspace{2mm}}
+		}
+	\end{center}
+	% \markboth{#4 -- #1}{#4 -- #1}
+	\vspace*{4mm}
+}
+
+\newenvironment{solution}
+{\color{blue} \paragraph{Solution.}}
+{\newline \qed}
+
+\begin{document}
+\large
+	%==========================Put your name and id here==========================
+	\homework{Homework 3}{Spring 2023}{Lijun Zhang}{张运吉}{211300063}
+	
+{\centering\section*{第六章}}
+
+\paragraph{第1题}~{}
+\\
+
+由题意可得：
+\begin{equation}
+    f(x)=x^{2}-x-1, f(1)=-1<0, f(2)=1>0 \nonumber
+\end{equation} \par
+故$[1, 2]$ 是$f(x)$ 的有根区间.\par
+$$f^{\prime}(x)=2 x-1$$\par
+当$x < \frac{1}{2}$时, $f(x)$单调递减. \par
+当$x > \frac{1}{2}$时, $f(x)$单调递增. \par
+$f(\frac{1}{2}) = -\frac{5}{4} < 0, f(0) = -1 < 0$. \par
+由单调性知$f(x)$存在唯一正根. \par
+若要使误差小于$0.05$, 则：
+\begin{equation}
+    \frac{1}{2^{k+1}}<0.05, \text{ 解得: } k > 4.322 \nonumber 
+\end{equation}\par
+所以至少二分$5$次. \par
+具体计算过程如下表: \par
+\begin{table}[h]
+    \centering
+    \caption{}
+    \label{tab:my-table}
+    \begin{tabular}{lllll}
+    \hline
+    $k$ & $a_k$ & $b_k$ & $x_k$ & $f(x_k)$的符号  \\ \hline
+    0 &   1    & 2  & 1.5 &   - \\
+    1 &   1.5  & 2  & 1.75 &  +  \\
+    2 &   1.5  & 1.75 & 1.625 &  +  \\
+    3 &   1.5  & 1.625 & 1.5625 & -   \\
+    4 &   1.5625  & 1.625 & 1.59375 & -   \\
+    5 &   1.59375  & 1.625 & 1.609375 & -   \\
+    \hline 
+    \end{tabular}
+    \end{table} \par
+即：$$x^{*} \approx x_{5}=1.609375$$.
+\paragraph{第4题}~{}
+\\
+
+\begin{enumerate}
+    \item [(1)]
+    二分法计算过程如下: \par
+    \begin{table}[h]
+        \centering
+        \caption{}
+        \begin{tabular}{llllll}
+        \hline
+        $k$ & $a_k$ & $b_k$ & $x_k$ & $sign$ & $\frac{1}{2^{k+1}}$  \\ \hline
+        0 &   0    & 1  & 0.5 &   + & 0.5 \\
+        1 &   0    & 0.5  & 0.25 &  + & 0.25  \\
+        2 &   0  & 0.25 & 0.125 &  + & 0.125  \\
+        3 &   0  & 0.125 & 0.0625 & -  & 0.0625 \\
+        4 &   0.0625  & 0.125 & 0.09375 & +  & 0.03125 \\
+        5 &   0.0625  & 0.09375 & 0.078125 & -  & 0.015625 \\
+        6 &   0.078125  & 0.09375 & 0.0859375 & -  & 0.0078125 \\
+        7 &   0.0859375 & 0.09375 & 0.08984375 & -  & 0.00390625 \\
+        8 &   0.08984375 & 0.09375 & 0.091796875 & +  & 0.001953125 \\
+        9 &   0.08984375 & 0.091796875 & 0.090820312 & +  & 0.000976562 \\
+        10 &   0.08984375 & 0.090820312 & 0.090332031 & -  & 0.000488281 \\
+        11 &   0.08984375 & 0.090820312 & 0.090332031 & -  & 0.00024414 \\
+        12 &   0.090332031 & 0.090576171 & 0.090454101 & -  & 0.00012207 \\
+        13 &   0.090454101 & 0.090576171 & 0.090515136 & -  & 0.000061035 \\
+        14 &   0.090515136 & 0.090576171 & 0.090545653 & +  & 0.000030517 \\
+        \hline 
+        \end{tabular}
+        \end{table} \par
+        当$k=14$时, $x_{14} = 0.090545653 = 9.0545653 \times 10^{-2}$.\par
+        $\left|x_{14}-x^{*}\right| \leqslant \frac{1}{2^{15}}=0.000030517<\frac{1}{2} \times 10^{-2-3+1} = \frac{1}{2} \times 10^{-4}$,所以此时$x^{*} \approx x_{14}$具有三位有效数字.
+    \item [(2)]
+    当$x\in [0, 0.5]$时, $\varphi(x) \in[0,0.5],\left|\varphi^{\prime}(x)\right|=\frac{1}{10}\left|-\mathrm{e}^{x}\right| \leqslant L = 0.825$,
+    所以此迭代公式收敛.
+    迭代过程如下表: \par
+    \begin{table}[h]
+        \centering
+        \caption{}
+        \label{tab:my-table}
+        \begin{tabular}{ll}
+        \hline
+        $k$ & $x_k$ \\ \hline
+        1 & 0.1 \\
+        2 & 0.089482908 \\
+        3 & 0.090639135 \\
+        4 & 0.090512616 \\
+        5 & 0.090526468 \\
+        6 & 0.090524951 \\
+        \hline 
+        \end{tabular}
+        \end{table} \par
+    当$k = 6$时， $x_6 = 0.090524951=9.0524951 \times 10 ^{-2}$.\par
+    $\left|x_{6}-x^{*}\right| \leqslant \frac{L}{1-L}\left|x_{6}-x_{5}\right| \leqslant 0.00000720<\frac{1}{2} \times 10^{-2 -3 +1} = \frac{1}{2} \times 10^{-4}$， 所以$x^{*} \approx x_6$有三位有效数字。
+\end{enumerate}
+\paragraph{第7题}~{}
+\\
+
+因为根的准确值$x^{*}=1.87938524 \cdots$,所以想要得到具有四位有效数字的精确解:$$|x - x^{*}| \leq \frac{1}{2} \times 10^{0-4+1} = \frac{1}{2} \times 10^{-3}$$ \par
+\begin{equation}
+    \begin{array}{l}f(1)<0, f(2)>0, f^{\prime}(x)=3 x^{2}-3=3\left(x^{2}-1\right) \geqslant 0, \\ f^{\prime \prime}(x)=6 x>0, \forall x \in[1,2]\end{array} \nonumber
+\end{equation}
+\begin{enumerate}
+    \item [(1)]
+    使用牛顿迭代法：\\
+    $x_{k+1}=x_{k}-\frac{x_{k}^{3}-3 x_{k}-1}{3 x_{k}^{2}-3}=\frac{2 x_{k}^{3}+1}{3\left(x_{k}^{2}-1\right)}$\par
+    $\text{得到：} x_{1}=1.8889, x_{3}=1.8794,\left|x_{3}-x^{*}\right|<\frac{1}{2} \times 10^{-3}$\par
+    $\therefore x^{*} \approx x_{3}=1.8794$
+    \item [(2)]
+    使用弦截法，取 $x_0=2,x_1=1.9$ :\\
+    $x_{k+1}=x_{k}-\frac{\left(x_{k}-x_{k-1}\right) f\left(x_{k}\right)}{f\left(x_{k}\right)-f\left(x_{k-1}\right)}$\par
+    得到: $x_{2}=1.9811, x_{3}=1.8794,\left|x_{3}-x^{*}\right|<\frac{1}{2} \times 10^{-3}$. \par
+    $\therefore \quad x^{*} \approx x_{3}=1.8794$
+    \item [(3)]
+    使用抛物线法：$x_0=1,x_1=3,x_2=2$\par
+    抛物线法的迭代公式为：\par
+    \begin{equation}
+        \left\{\begin{array}{l}x_{k+1}=x_{k}-\frac{2 f\left(x_{k}\right)}{\omega+\operatorname{sign}(\omega) \sqrt{\omega^{2}-4 f\left(x_{k}\right) f\left[x_{k}, x_{k-1}, x_{k-2}\right]}} \\ \omega=f\left[x_{k}, x_{k-1}\right]+f\left[x_{k}, x_{k-1}, x_{k-2}\right]\left(x_{k}-x_{k-1}\right)\end{array}\right. \nonumber
+    \end{equation}
+\par
+得到:$x_3=1.953967549,x_4=1.87801539,x_5=1.879386866, \left|x_{5}-x^{*}\right|<\frac{1}{2} \times 10^{-3}$ \par
+$\therefore \quad x^{*} \approx x_{5}=1.879386866$
+\end{enumerate}
+
+\paragraph{第8题}~{}
+\\
+
+当$x \in\left(0, \frac{\pi}{2}\right)$时，$x - tan(x) < 0$. \par
+当$x \in \left(\frac{\pi}{2}, \frac{3 \pi}{2}\right)$时， $x - tan(x) > 0$. \par
+所以$x - tan(x) = 0$的最小正根在$\left(\frac{\pi}{2}, \frac{3 \pi}{2}\right)$内.\par
+\begin{enumerate}
+    \item [(1)]
+    设$f(x)=x-\tan x, x \in\left(\frac{\pi}{2}, \frac{3}{2} \pi\right)$\par
+    $\because f(4) > 0, f(4.6) < 0$, $\therefore [4, 4.6]$是有根区间. \par
+    二分法的计算过程如下表: \par
+    \begin{table}[h]
+        \centering
+        \caption{}
+        \label{tab:my-table}
+        \begin{tabular}{lllll}
+        \hline
+        $k$ & $a_k$ & $b_k$ & $x_k$ & $f(x_k)$的符号  \\ \hline
+        0 &   4.0    & 4.6  & 4.3 &   + \\
+        1 &   4.3  & 4.6  & 4.45 &  +  \\
+        2 &   4.45  & 4.6 & 4.525 &  -  \\
+        3 &   4.45  & 4.525 & 4.4875 & +   \\
+        4 &   4.4875  & 4.525 & 4.50625 & -   \\
+        5 &   4.4875  & 4.50625 & 4.496875 & -   \\
+        6 &   4.4875  & 4.496875 & 4.4921875 & +   \\
+        7 &   4.4921875  & 4.496875 & 4.49453125 & -   \\
+        8 &   4.4921875  & 4.49453125 & 4.493359375 & +   \\
+        9 &   4.493359375  & 4.49453125 & 4.493445313 & -   \\
+        \hline 
+        \end{tabular}
+        \end{table} \par
+    $\left|x_{9}-x^{*}\right|<\frac{1}{2^{10}}=\frac{1}{1024}<10^{-3}$.\par
+    \item [(2)]
+    使用牛顿迭代法:\par
+    $\because f^{\prime}(x)=-(\tan x)^{2} < 0, f^{\prime \prime}(x)=-2 \tan x \frac{1}{\cos ^{2} x} < 0. \therefore$牛顿法收敛. \par
+    迭代公式为:$x_{k+1} = x_k - \frac{x_k - \tan x_k}{-(\tan x_k)^2}$.\par
+    取$x_0 = 4.6$, 具体迭代过程如下表所示:\par
+    \begin{table}[h]
+        \centering
+        \caption{}
+        \label{tab:my-table}
+        \begin{tabular}{ll}
+        \hline
+        $k$ & $x_k$ \\ \hline
+        1 & 4.545732122 \\
+        2 & 4.506145588 \\
+        3 & 4.494171630 \\
+        4 & 4.493412197 \\
+        5 & 4.493409458 \\
+        6 & 4.493409458 \\
+        \hline 
+        \end{tabular}
+        \end{table} \par
+    $\therefore x- \tan x = 0$的最小正根$\approx 4.493409458$.
+\end{enumerate}
+
+\paragraph{第12题}~{}
+\\
+
+由题意：
+\begin{equation}
+    f(x)=x^{3}-a, f^{\prime}(x)=3 x^{2}, f^{\prime \prime}(x)=6 x \nonumber
+\end{equation} \par
+相应的牛顿迭代公式为：
+\begin{equation}
+    x_{k+1}= \varphi(x_k) = x_{k}-\frac{x_{k}^{3}-a}{3 x_{k}^{2}}=\frac{2 x_{k}^{3}+a}{3 x_{k}^{2}}, \quad k=0,1,2, \cdots \label{my}
+\end{equation} \par
+\begin{equation}
+    \varphi^{\prime}(x)=\frac{f(x) f^{\prime \prime}(x)}{\left[f^{\prime}(x)\right]^{2}} \nonumber
+\end{equation} \par
+\begin{equation}
+    \begin{cases}
+        x > 0, f^{\prime}(x) > 0, f^{\prime\prime}(x) > 0 \\
+        x < 0, f^{\prime}(x) > 0, f^{\prime\prime}(x) < 0 
+        \nonumber
+    \end{cases}
+\end{equation} \par
+\begin{itemize}
+    \item $a > 0$ 时： \\
+    $x_{0}\in (\sqrt[3]{a}, +\infty)$, $f\left(x_{0}\right) f^{\prime \prime}\left(x_{0}\right)>0$, 牛顿序列$\{x_k\}$收敛到$\sqrt[3]{a}$. \par
+    $x_{0}\in (0, \sqrt[3]{a})$, $x_{1}-\sqrt[3]{a}=\frac{2 x_{0}^{3}+a}{3 x_{0}^{2}}-\sqrt[3]{a}=\frac{\left(\sqrt[3]{a}-x_{0}\right)^{2}}{3 x_{0}^{2}}\left(\sqrt[3]{a}+2 x_{0}\right)>0$. \par
+    $\therefore x_1 > \sqrt[3]{a}$. 从$x_1$起， 牛顿序列$\{x_k\}$收敛到$\sqrt[3]{a}$. \par
+    $x_{0}\in (-\infty, 0)$, $f\left(x_{0}\right) f^{\prime \prime}\left(x_{0}\right)>0$, 牛顿序列$\{x_k\}$收敛到$\sqrt[3]{a}$. \par
+    \item $a < 0$ 时： \\
+    $x_{0}\in (-\infty, \sqrt[3]{a})$, $f\left(x_{0}\right) f^{\prime \prime}\left(x_{0}\right)>0$, 牛顿序列$\{x_k\}$收敛到$\sqrt[3]{a}$. \par
+    $x_{0}\in (\sqrt[3]{a}, 0)$, $x_{1}-\sqrt[3]{a}=\frac{\left(\sqrt[3]{a}-x_{0}\right)^{2}}{3 x_{0}^{2}}\left(\sqrt[3]{a}+2 x_{0}\right)<0$. \par
+    $\therefore x_1 < \sqrt[3]{a}$. 从$x_1$起， 牛顿序列$\{x_k\}$收敛到$\sqrt[3]{a}$. \par
+    $x_{0}\in (0, +\infty)$, $f\left(x_{0}\right) f^{\prime \prime}\left(x_{0}\right)>0$, 牛顿序列$\{x_k\}$收敛到$\sqrt[3]{a}$. \par
+    \item $a = 0$ 时： \\
+    $x_{k+1}=x_{k}-\frac{x_{k}^{3}}{3 x_{k}^{2}}=\frac{2}{3} x_{k}$, 此迭代公式对任意$x\in R$都收敛
+\end{itemize}
+综上所述，牛顿迭代公式$\ref{my}$对任意$a \in R, x_0 \in R$都收敛到$\sqrt[3]{a}$.
+
+\newpage
+{\centering\section*{第七章}}
+
+
+% 第7，13，15，18，19，31，33题
+
+\paragraph{第7题}~{}
+\\
+
+\begin{enumerate}
+    \item [(1)]
+    $a_{ii} = (\mathbf{A}\mathbf{e_i}, \mathbf{e_i})= \mathbf{e_i}^{\mathrm{T}}\mathbf{A}\mathbf{e_i}, i \in [n]$, 其中$\mathbf{e_i}=(0, \ldots, 0, 1, 0, \ldots)$是第i个单位向量. \\
+    显然上式是关于$\mathbf{e_i}$的二次型，$\mathbf{A}$又是正定的. \\
+    根据正定二次型的定义, $\forall x_i \in \mathbb{R}^n, x^{\top}\mathbf{A}x > 0$, 因此我们有$a_{ii} > 0$.
+    \item [(2)]
+    由$\mathbf{A}$的正定性以及消元公式：
+    \begin{align*} a_{i j}^{(2)} =a_{i j}-\frac{a_{i 1}}{a_{11}} a_{1 j}  =a_{j i}-\frac{a_{j 1}}{a_{11}} a_{1 i}=a_{j i}^{(2)}, \quad i, j=2, \cdots, n\end{align*} 
+    故$\mathbf{A}_2$是对称矩阵. \\
+    由矩阵的初等变换:
+    \begin{equation}
+        \left(\begin{array}{cc}a_{11} & \boldsymbol{a}_{1}^{\mathrm{T}} \\ \mathbf{0} & \boldsymbol{A}_{2}\end{array}\right)=\boldsymbol{L}_{1} \boldsymbol{A}  \\
+        \quad \text{其中:} \quad \\ 
+        \boldsymbol{L}_{1}=\left[\begin{array}{cccc}1 & & & \\ -\frac{a_{21}}{a_{11}} & 1 & & \\ \vdots & & \ddots & \\ -\frac{a_{n 1}}{a_{11}} & \cdots & & 1\end{array}\right]  \nonumber
+    \end{equation}
+    $\boldsymbol{L}_{1}$非奇异，因此$\forall x \neq \mathbf{0}$, $\boldsymbol{L}_{1}x \neq \mathbf{0}$.
+    \begin{equation}
+        \left(\boldsymbol{x}, \boldsymbol{L}_{1} \boldsymbol{A} \boldsymbol{L}_{1}^{\mathrm{T}} \boldsymbol{x}\right)=\left(\boldsymbol{L}_{1}^{\mathrm{T}} \boldsymbol{x}, \boldsymbol{A L}_{1}^{\mathrm{T}} \boldsymbol{x}\right) = \boldsymbol{x}^{\mathrm{T}}\boldsymbol{L}_{1}\boldsymbol{A} \boldsymbol{L}_{1}^{\mathrm{T}} \boldsymbol{x}>0 \quad \text{(由于$\boldsymbol{A}$的正定性)}\nonumber
+    \end{equation}
+    所以: $\boldsymbol{L}_{1}\boldsymbol{A} \boldsymbol{L}_{1}^{\mathrm{T}}$是正定矩阵. \\
+    因为:
+    \begin{equation}
+        \text{$\boldsymbol{A}$是对称矩阵并且 }\quad
+        \left(\begin{array}{cc}a_{11} & \boldsymbol{a}_{1}^{\mathrm{T}} \\ \mathbf{0} & \boldsymbol{A}_{2}\end{array}\right)=\boldsymbol{L}_{1} \boldsymbol{A}  \nonumber
+    \end{equation}
+    所以：
+    \begin{equation}
+        \boldsymbol{L}_{1} \boldsymbol{A} \boldsymbol{L}_{1}^{\mathrm{T}}=\left(\begin{array}{cc}a_{11} & \mathbf{0} \\ \mathbf{0} & \boldsymbol{A}_{2}\end{array}\right) \nonumber
+    \end{equation}
+    而$a_{11} > 0$, 故$\boldsymbol{A}_2$正定.
+    \item [(3)]
+    由消元公式:
+    $$a_{ii}^{(2)}=a_{ii}-\frac{a_{i1}}{a_{11}}a_{1i} = a_{ii} - \frac{a_{i1}^2}{a_{11}}$$
+    因为$a_{11} > 0$, 所以$a_{i i}^{(2)} \leqslant a_{i i} \quad(i=2,3, \cdots, n)$.
+    \item [(4)]
+    因为$\boldsymbol{A}$是对称正定矩阵，所以$\boldsymbol{A}$划去任意k行k列所得矩阵仍是对称正定矩阵. \\
+    假设$\boldsymbol{A}$划去除了第i，j以外的所有行和列,得到:
+    \begin{equation}
+        \boldsymbol{A}^{\prime}=\left(\begin{array}{cc}a_{ii} & a_{ij} \\ a_{ji} & a _{jj}\end{array}\right) \nonumber
+    \end{equation}
+    所以$\operatorname*{det}(\boldsymbol{A}^{\prime})=a_{ii}a_{jj} - a_{ij}^{2} > 0$.
+    即$a_{ij}^{2} < a_{ii}a_{jj}(i, j = 1, 2, \ldots, n \text{ 并且} i \neq j)$. \\
+    由此可知$\boldsymbol{A}$的绝对值最大的元素必然在对角线上，否则与上述结论矛盾. 
+    \item [(5)]
+    首先，由(2)(4)知，$\boldsymbol{A}_2$的绝对值最大的元素在对角线上,即:
+    $$\max _{2 \leqslant i, j \leqslant n}\left|a_{i j}^{(2)}\right| = \max _{2 \leqslant i\leqslant n}\left|a_{i i}^{(2)}\right|$$
+    再由(3)知,$$\max _{2 \leqslant i\leqslant n}\left|a_{i i}^{(2)}\right|\leq \max _{2 \leqslant i\leqslant n}\left|a_{i i}\right|=\max _{2 \leqslant i, j \leqslant n}\left|a_{i j}\right|$$
+    综上, $\max _{2 \leqslant i, j \leqslant n}\left|a_{i j}^{(2)}\right| \leqslant \max _{2 \leqslant i, j \leqslant n}\left|a_{i j}\right|$.
+    \item [(6)]
+    由(5)的证明易得:$$\forall k \in [n], \max _{k \leqslant i, j \leqslant n}\left|a_{i j}^{(k)}\right| \leqslant \max _{k-1 \leqslant i, j \leqslant n}\left|a_{i j}^{(k-1)}\right| \leqslant \cdots \leqslant \max _{2 \leqslant i, j \leqslant n}\left|a_{i j}\right| \leq 1$$
+    对于除了$a_{ij}^{(k)} , k \leqslant i, j \leqslant n$外的其他元素，$a_{ij}^{(k)} = a_{ij}^{(k-1)}$. \\
+    由(2)可得， $\max _{i, j \notin [k, n]}\left|a_{i j}^{(k-1)}\right| = \max _{k-1 \leqslant i\leqslant n}\left|a_{i i}^{(k-1)}\right| \leq a_{ii} < 1$. \\
+    综上, 对于所有$k$, $\left|a_{i j}^{(k)}\right|<1$.
+\end{enumerate}
+
+\paragraph{第13题}~{}
+\\
+
+令
+\begin{equation}
+    \begin{aligned}
+        \begin{array}{l}{\left(\begin{array}{rrrrr}2 & -1 & & & \\ -1 & 2 & -1 & & \\ & -1 & 2 & -1 & \\ & & -1 & 2 & -1 \\ & & & -1 & 2\end{array}\right)} =\left(\begin{array}{rrrrr}\alpha_{1} & & & & \\ -1 & \alpha_{2} & & & \\ & -1 & \alpha_{3} & & \\ & & -1 & \alpha_{4} & \\ & & & -1 & \alpha_{5}\end{array}\right)\left(\begin{array}{rrrrr}1 & \beta_{1} & & & \\ & 1 & \beta_{2} & & \\ & & 1 & \beta_{3} & \\ & & & 1 & \beta_{4} \\ & & & & 1\end{array}\right) \\\end{array} \nonumber
+    \end{aligned}
+\end{equation} \par
+由公式:
+\begin{equation}
+    \left\{\begin{array}{ll}\alpha_{1}=b_{1}, \beta_{1}=\frac{c_{1}}{\alpha_{1}} & \\ \alpha_i=b_i-a_i\beta_{i-1} & (i=2,3,4,5) \\ \beta_i = \frac{c_i}{b_i-a_i\beta_{i-1}} & (i=2,3,4)\end{array}\right. \nonumber
+\end{equation} \par
+解得:
+\begin{eqnarray}
+    \begin{array}{l}\alpha_{1}=2, \quad \alpha_{2}=\frac{3}{2}, \quad \alpha_{3}=\frac{4}{3}, \quad \alpha_{4}=\frac{5}{4}, \quad \alpha_{5}=\frac{6}{5} \\ \beta_{1}=-\frac{1}{2}, \quad \beta_{2}=-\frac{2}{3}, \quad \beta_{3}=-\frac{3}{4}, \quad \beta_{4}=-\frac{4}{5}\end{array}\nonumber
+\end{eqnarray} \par
+解方程组:
+\begin{equation}
+    \left[\begin{array}{ccccc}2 & & & \\ -1 & \frac{3}{2} & & \\ & -1 & \frac{4}{3} & \\ & & -1 & \frac{5}{4} \\ & & & -1 & \frac{6}{5}\end{array}\right]\left[\begin{array}{l}y_{1} \\ y_{2} \\ y_{3} \\ y_{4} \\ y_{5}\end{array}\right]=\left[\begin{array}{l}1 \\ 0 \\ 0 \\ 0 \\ 0\end{array}\right] \nonumber
+\end{equation} \par
+得: $\boldsymbol{y} = (\frac{1}{2}, \frac{1}{3}, \frac{1}{4}, \frac{1}{5}, \frac{1}{6})^{\mathrm{T}}$. \par
+解方程组:
+\begin{equation}
+    \left[\begin{array}{ccccc}1 &-\frac{1}{2} & & \\  & 1 &-\frac{2}{3} & \\ &  & 1 & -\frac{3}{4}\\ & &  & 1 &-\frac{4}{5} \\ & & &  & 1\end{array}\right]\left[\begin{array}{l}x_{1} \\ x_{2} \\ x_{3} \\ x_{4} \\ x_{5}\end{array}\right]=\left[\begin{array}{l}\frac{1}{2} \\ \frac{1}{3} \\ \frac{1}{4} \\ \frac{1}{5} \\ \frac{1}{6}\end{array}\right] \nonumber
+\end{equation}\par
+得：$\boldsymbol{x} = (\frac{5}{6}, \frac{2}{3}, \frac{1}{2}, \frac{1}{3}, \frac{1}{6})^{\mathrm{T}}$.
+
+\paragraph{第15题}~{}
+\\
+
+$\boldsymbol{A}$中$\Delta_{2}=1\times4-2\times 2=0$,所以不能分解. $\operatorname*{det}(\boldsymbol{A}) = -10 \neq 0$, 若交换$\boldsymbol{A}$的第一行与第3行, $\Delta_{i}\neq 0, i=1,2,3$, 此时$\boldsymbol{A}$可以LU分解并且分解唯一. \par
+$\boldsymbol{B}$中$\Delta_{2} = \Delta_{3} = 0$, 故不能分解. 但:
+\begin{equation}
+    \boldsymbol{B}=\left[\begin{array}{rrr}1 & & \\ 2 & 1 & \\ 3 & a & 1\end{array}\right]\left[\begin{array}{llr}1 & 1 & 1 \\ 0 & 0 & -1 \\ 0 & 0 & a-2\end{array}\right] \nonumber
+\end{equation} 
+其中$a$为任意常数，且$\boldsymbol{U}$奇异，所以分解不唯一. \par
+$\boldsymbol{C}$, 因为$\Delta_{i}\neq 0, i=1,2,3$, 所以$\boldsymbol{C}$可以LU分解并且分解唯一.
+\begin{equation}
+    \boldsymbol{C}=\left[\begin{array}{lll}1 & & \\ 2 & 1 & \\ 6 & 3 & 1\end{array}\right]\left[\begin{array}{lll}1 & 2 & 6 \\ & 1 & 3 \\ & & 1\end{array}\right] \nonumber
+\end{equation}
+
+\paragraph{第18题}~{}
+\\
+
+\begin{equation}
+    \begin{array}{l}\|\boldsymbol{A}\|_{\infty}=\max _{1 \leqslant i \leqslant n} \sum_{j=1}^{n}\left|a_{i j}\right|=1.1 \\ \|\boldsymbol{A}\|_{1}=\max _{1 \leqslant j \leqslant n} \sum_{i=1}^{n}\left|a_{i j}\right|=0.8 \\ \|\boldsymbol{A}\|_{F}=\left(\sum_{i, j=1}^{n} a_{i j}^{2}\right)^{\frac{1}{2}}=\sqrt{0.71}=0.8426\end{array} \nonumber
+\end{equation}
+\begin{equation}
+    \boldsymbol{A}^{T} \boldsymbol{A}=\left[\begin{array}{ll}0.6 & 0.1 \\ 0.5 & 0.3\end{array}\right]\left[\begin{array}{ll}0.6 & 0.5 \\ 0.1 & 0.3\end{array}\right]=\left[\begin{array}{ll}0.37 & 0.33 \\ 0.33 & 0.34\end{array}\right] \nonumber
+\end{equation} \par
+求解$\boldsymbol{A}^{T} \boldsymbol{A}$的特征值, 得到$\lambda_1 = 0.6853, \lambda_2 = 0.0247$. $\therefore \lambda_{\max}(\boldsymbol{A}^{T}\boldsymbol{A}) = 0.6853$. \par
+$\therefore \|\boldsymbol{A}\|_{2}=\sqrt{\lambda_{\max }\left(\boldsymbol{A}^{\mathrm{T}} \boldsymbol{A}\right)}=0.825$.
+
+\paragraph{第19题}~{}
+\\
+\begin{enumerate}
+    \item [(1)]
+    $\because
+        \max_{1 \leq i \leq n} |x_i| \leq \sum_{i=1}^{n} |x_i| \leq n\max_{1 \leq i \leq n} |x_i| 
+    $ \par
+    $\therefore \|\boldsymbol{x}\|_{\infty} \leqslant\|\boldsymbol{x}\|_{1} \leqslant n\|\boldsymbol{x}\|$
+    \item [(2)]
+    $\forall \boldsymbol{x} \in \mathbb{R}^n, \|\boldsymbol{A} \boldsymbol{x}\|_{2}^{2} = (\boldsymbol{A} \boldsymbol{x}, \boldsymbol{A} \boldsymbol{x}) = (\boldsymbol{A}^{\mathrm{T}} \boldsymbol{A} \boldsymbol{x}, \boldsymbol{x}) \geq 0$. \par
+    $\therefore \boldsymbol{A}^{\mathrm{T}} \boldsymbol{A}$的特征值为非负实数. \par
+    所以:
+    \begin{equation}
+        \begin{aligned}\|\boldsymbol{A}\|_{2}^{2} & =\lambda_{\max }\left(\boldsymbol{A}^{\mathrm{T}} \boldsymbol{A}\right) \\ & \leqslant \lambda_{1}\left(\boldsymbol{A}^{\mathrm{T}} \boldsymbol{A}\right)+\lambda_{2}\left(\boldsymbol{A}^{\mathrm{T}} \boldsymbol{A}\right)+\cdots+\lambda_{n}\left(\boldsymbol{A}^{\mathrm{T}} \boldsymbol{A}\right) \\ & =\operatorname{tr}\left(\boldsymbol{A}^{\mathrm{T}} \boldsymbol{A}\right) \\ & =\sum_{i=1}^{n} a_{i 1}^{2}+\sum_{i=1}^{n} a_{i 2}^{2}+\cdots+\sum_{i=1}^{n} a_{i n}^{2} \\ & =\sum_{j=1}^{n} \sum_{i=1}^{n} a_{i j}^{2}=\|\boldsymbol{A}\|_{F}^{2} \\ \|\boldsymbol{A}\|_{2}^{2} & =\lambda_{\max }\left(\boldsymbol{A}^{\mathrm{T}} \boldsymbol{A}\right) \\ & \geqslant \frac{1}{n}\left[\lambda_1\left(\boldsymbol{A}^{\mathrm{T}} \boldsymbol{A}\right)+\lambda_{2}\left(A^{\mathrm{T}} \boldsymbol{A}\right)+\cdots+\lambda_{n}\left(\boldsymbol{A}^{\mathrm{T}} \boldsymbol{A}\right)\right] \\ & =\frac{1}{n}\|\boldsymbol{A}\|_{F}^{2}\end{aligned} \nonumber
+    \end{equation}
+    $\therefore \frac{1}{\sqrt{n}}\|\boldsymbol{A}\|_{F} \leqslant\|\boldsymbol{A}\|_{2} \leqslant\|\boldsymbol{A}\|_{F}$.
+\end{enumerate}
+
+\paragraph{第31题}~{}
+\\
+\begin{equation}
+    \begin{array}{l}\boldsymbol{A}^{-1}=\left[\begin{array}{ll}-98 & 99 \\ 99 & -100\end{array}\right]\quad \|\boldsymbol{A}\|_{\infty}=199 \quad \left\|\boldsymbol{A}^{-1}\right\|_{\infty}=199 \\ \end{array} \nonumber
+\end{equation} \par
+\quad \quad \quad \quad \quad $\therefore \operatorname{cond}(\boldsymbol{A})_{\infty}=\left\|\boldsymbol{A}^{-1}\right\|_{\infty}\|\boldsymbol{A}\|_{\infty}=39601$
+\begin{equation}
+    \boldsymbol{A}^{T} \boldsymbol{A}=\left[\begin{array}{llll}19801 & 19 602 \\ 19602 & 19405\end{array}\right] \nonumber
+\end{equation} \par
+\quad \quad \quad \quad \quad $\therefore \operatorname{cond}(\boldsymbol{A})_{2} =\left\|\boldsymbol{A}^{-1}\right\|_{2}\|\boldsymbol{A}\|_{2}=\sqrt{\frac{\lambda_{\max }\left(\boldsymbol{A}^{\mathrm{T}} \boldsymbol{A}\right)}{\lambda_{\min }\left(\boldsymbol{A}^{\mathrm{T}} \boldsymbol{A}\right)}} =39205.9745$
+
+\paragraph{第33题}~{}
+\\
+
+由矩阵范数的性质以及条件数的定义:
+\begin{equation}
+    \begin{aligned} \operatorname{cond}(\boldsymbol{A B}) & =\left\|(\boldsymbol{A} \boldsymbol{B})^{-1}\right\|\|\boldsymbol{A}\| \\ & \leqslant\left\|\boldsymbol{A}^{-1}\right\|\left\|\boldsymbol{B}^{-1}\right\|\|\boldsymbol{A}\|\|\boldsymbol{B}\| \\ & \leqslant\left\|\boldsymbol{A}^{-1}\right\|\|\boldsymbol{A}\|\left\|\boldsymbol{B}^{-1}\right\|\|\boldsymbol{B}\| \\ & =\operatorname{cond}(\boldsymbol{A}) \operatorname{cond}(\boldsymbol{B}) .\end{aligned} \nonumber
+\end{equation}\par
+\end{document}
