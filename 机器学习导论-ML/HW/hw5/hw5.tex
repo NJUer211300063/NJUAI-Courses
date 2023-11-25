@@ -1,0 +1,479 @@
+\documentclass[a4paper,UTF8]{article}
+\usepackage{ctex}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{soul, color, xcolor}
+\usepackage{bm}
+\usepackage{tcolorbox}
+\numberwithin{equation}{section}
+%\usepackage[thmmarks, amsmath, thref]{ntheorem}
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+\newtheorem*{prove}{Proof}
+\usepackage{multirow}
+\usepackage{diagbox}
+\usepackage{float}
+\usepackage{cleveref}
+
+\newcommand{\bds}{\boldsymbol}
+\def \X {\boldsymbol{X}}
+\def \Y {\boldsymbol{Y}}
+\def \A {\boldsymbol{A}}
+\def \w {\boldsymbol{w}}
+\def \u {\boldsymbol{u}}
+\def \v {\boldsymbol{v}}
+\def \s {\boldsymbol{s}}
+\def \y {\boldsymbol{y}}
+\def \x {\boldsymbol{x}}
+\def \z {\boldsymbol{z}}
+\def \hy {\widehat{y}}
+\def \by {\Bar{y}}
+\def \H {\mathbf{H}}
+\def \I {\mathbf{I}}
+\def \boldalpha {\boldsymbol{\alpha}}
+\newcommand\given[1][]{\:#1\vert\:}
+\setlength{\parindent}{0pt}
+%--
+
+%--
+\begin{document}
+\title{机器学习导论\ 习题五}
+\author{211300063, 张运吉, \href{mailto:邮箱}{211300063@smail.nju.edu.cn}}
+\maketitle
+\section*{作业提交注意事项}
+\begin{tcolorbox}
+	\begin{enumerate}
+		\item[1.] 请在LaTeX模板中第一页填写个人的学号、姓名、邮箱;
+		\item[2.] 本次作业需提交作答后的该 pdf 文件, {\color{red}\textbf{请将其打包为~.zip 文件上传}}. 注意命名规则, 两个文件均命名为 “$\text{学号}\_\text{姓名}$” + “.后缀” (例如 $\text{211300001}\_\text{张三}$” + “.pdf”、“.zip”);
+		\item[3.] 若多次提交作业, 则在命名~.zip 文件时加上版本号, 例如 211300001\_张三\_v1.zip” (批改时以版本号最高的文件为准);
+		\item[4.] 本次作业提交截止时间为 {\color{red}\textbf{ 6 月 6 日23:59:59}}. 未按照要求提交作业, 提交作业格式不正确, {\color{red}\textbf{作业命名不规范}}, 将会被扣除部分作业分数; 除特殊原因 (如因病缓交, 需出示医院假条) 逾期未交作业, 本次作业记 0 分; {\color{red}\textbf{如发现抄袭, 抄袭和被抄袭双方成绩全部取消}};
+		\item[5.] 本次作业提交地址为 \href{https://box.nju.edu.cn/u/d/c3a4ff4dc42744d48541/}{here}, 请大家预留时间提前上交, 以防在临近截止日期时, 因网络等原因无法按时提交作业.
+	\end{enumerate}
+\end{tcolorbox}
+
+\newpage
+
+\section{[15pts] Minimum Error Rate Determination}
+贝叶斯判定准则与贝叶斯最优分类器是机器学习中十分重要的概念. 请仔细阅读《机器学习》第 7 章 7.1 节, 完成如下问题.
+
+\begin{enumerate}
+\item[(1)] \textbf{[5pts]} 请证明课本 (7.6)式 中的贝叶斯最优分类器 $h^*(\boldsymbol{x})$ 满足
+\begin{align*}
+    P(y = h^*(\boldsymbol{x})) \geq \frac{1}{N}.
+\end{align*}
+其中$N$为类别数目, $y$为样本$\x$的真实标记.
+
+\item[(2)] \textbf{[10pts]} 在实际应用场景中, 随着环境发生变化, 可能会出现模型从未见过的新类别. 
+由于新环境中的一些样本不属于任何已知类，已有分类器必然会给出错误的预测结果，从而可能误导人们做出错误决策. 
+一种方法是引入 “拒识”(reject) 的概念, 允许分类器在必要情况下, 拒绝为某些样本给出分类结果, 也作为环境中可能出现新类的预警. 
+例如考虑$N$分类问题, 可能的类别标记为$\mathcal{Y} = \{c_1, \cdots, c_N\}$, 将真实标记为$c_j$的样本误分类为$c_i$产生的损失为$\lambda_{ij}$. 
+引入拒识的情况下, 损失的定义将扩展为:
+\begin{align*}
+    \lambda_{ij}= \begin{cases}
+        0 & \text{若$i=j$}; \\
+        \lambda_s & \text{若$i \neq j$}; \\
+        \lambda_r \ (\lambda_r < \lambda_s)& \text{拒识}.
+    \end{cases}
+\end{align*}
+请由此给出样本$\x$上条件风险$R(c_i \given \x)$的表达式. 结合贝叶斯判定准则, 请给出此时的贝叶斯最优分类器$h^\star(\x)$ (包含分类规则和拒识规则), 并描述其意义.
+\end{enumerate}
+
+\begin{solution}
+此处用于写解答(中英文均可) \\
+\begin{enumerate}
+    \item [(1)]
+    证明如下:
+    \begin{align*} P\left(h^{\star}(\boldsymbol{X}) \mid \boldsymbol{x}\right) & =P\left(Y=h^{\star}(\boldsymbol{x}) \mid \boldsymbol{X}=\boldsymbol{x}\right) \\ & =\max _{c \in \mathcal{Y}} P(Y=c \mid \boldsymbol{X}=\boldsymbol{x}) \\ & =\frac{1}{N} N \max _{c \in \mathcal{Y}} P(Y=c \mid \boldsymbol{X}=\boldsymbol{x}) \\ & \geq \frac{1}{N} \sum_{c \in \mathcal{Y}} P(Y=c \mid \boldsymbol{X}=\boldsymbol{x}) \\ & =\frac{1}{N} \end{align*}
+    其中第二个等式是根据贝叶斯最优分类器的定义，也就是公式(7.6). \\
+    \begin{align*}
+        P\left(y=h^{\star}(\boldsymbol{x})\right) & =\sum_{\boldsymbol{x}} P\left(Y=h^{\star}(\boldsymbol{X}) \mid \boldsymbol{X}=\boldsymbol{x}\right) P(\boldsymbol{X}=\boldsymbol{x}) \\ & \geq \frac{1}{N} \sum_{\boldsymbol{x}} P(\boldsymbol{X}=\boldsymbol{x}) \\ & =\frac{1}{N}
+    \end{align*}
+    其中第一个等式是根据全概率公式得来.
+    \item [(2)]
+    添加reject的情况下: 
+    \begin{equation}
+        R(c \mid \boldsymbol{x})=\sum_{j=1}^{N} \lambda_{i j} P\left(c_{j} \mid \boldsymbol{x}\right)=\left\{\begin{array}{ll}(1-P(c \mid \boldsymbol{x})) \lambda_{s} & c \in \mathcal{Y} \\ \lambda_{r} & \text{reject!}\end{array}\right. \nonumber
+    \end{equation}
+    根据贝叶斯最优判别准则，我们要最小化$R(c \mid \boldsymbol{x})$. \\
+    因此, 当$\lambda_r \leqslant \min\limits_{c \in \mathcal{Y}}(1-P(c \mid \boldsymbol{x})) \lambda_{s}$时，也即$\max \limits_{c \in \mathcal{Y}} P(c \mid \boldsymbol{x}) \leq 1-\frac{\lambda_{r}}{\lambda_{s}}$时，reject! \\
+    综合起来，有：
+    \begin{equation}
+        h^{\star}(\boldsymbol{x})=\left\{\begin{array}{ll}\text{reject! }&\text{ if } \max \limits_{c \in \mathcal{Y}} P(c \mid \boldsymbol{x}) \leq 1-\frac{\lambda_{r}}{\lambda_{s}}\\\underset{c \in \mathcal{Y}}{\arg \max } P(c \mid \boldsymbol{x}) & \text { otherwise }  \end{array}\right. \nonumber
+    \end{equation}
+    引入“拒识”相当于引入了“像”和“不像”的边界，只有在$\max \limits_{c \in \mathcal{Y}} P(c \mid \boldsymbol{x}) > 1-\frac{\lambda_{r}}{\lambda_{s}}$时，我们才会根据分类规则$\underset{c \in \mathcal{Y}}{\arg \max } P(c \mid \boldsymbol{x})$把样本进行分类，否则拒绝分类. 这样做的好处是符合直觉的，只有当一个样本足够像某一类时我们才有较大的把握对其分类，如果某个样本不像标记空间中的任何一类，那么我们是没有把握对其正确分类的. 这样做可以提高分类器的性能。当拒识的损失较小时，分类器更倾向于将未知类别的样本拒绝，从而提供了一种预警机制，避免误导人们做出错误决策.
+\end{enumerate}
+\end{solution}
+
+\newpage
+
+\section{[35pts] Expectation Maximization}
+通常情况下, 模型会假设训练样本所有属性变量的值都可以观测到. 但在现实应用中, 往往会遇到属
+性变量不可观测的情况, 例如西瓜的根蒂脱落, 便无法观测到“根蒂”属性的取值. 在这种存在“未
+观测”变量的情况下, EM(Expectation-Maximization)算法是估计参数隐变量的利器. 
+请仔细阅读《机器学习》第七章7.6节, 回答以下问题.
+
+\subsection{[5pts] EM with Coin Flips}
+考虑简单的抛硬币问题. 现有两枚硬币$A$和$B$，正面朝上的概率分别为$\theta_A, \theta_B$, 结果朝上
+记为H~(head), 朝下记为T~(tail). 独立地进行$N$轮实验, 在第$k$轮实验中, 以均等概率选择一枚硬币$Z_k \in \{A,B\}$并重复抛掷$M$次, 
+其中硬币朝上的次数$X_k$为可观测变量, 而选择的硬币类型$Z_k$为隐变量不可观测. 
+我们将使用EM算法, 迭代一次, 对参数$\theta = (\theta_A, \theta_B)$进行估计, 使用的实验数据如表\ref{table: EM}所示. 
+具体而言共3轮实验, 每轮选取的硬币记为$z_i ~ (i=1,2,3)$, 抛掷10次并记录结果, 硬币朝上的次数记为$x_i ~ (i=1,2,3)$. 
+
+\begin{itemize}
+    \item[(1)] \textbf{[2pts]} $\mathbf{E}$步(Expectation): 假设参数的初始值$\theta^0 = (0.6, 0.5)$.
+    请结合实验数据, 推断出隐变量取值$\z = (z_1, z_2)$的分布, 即推断出第$i$轮实验~($i=1,2,3$)中抛掷硬币$A$、硬币$B$各自的概率, 
+    完善表\ref{table: EM}的第2-3列.
+    \item[(2)] \textbf{[3pts]} $\mathbf{M}$步(Maximization): 根据隐变量取值$\z$的分布, 对参数$\theta$进行极大似然估计.
+    请完善表\ref{table: EM}的第4-5列, 给出EM算法迭代一次后的参数估计值$\theta^1 = (\theta_A^1, \theta_B^1)$.  
+\end{itemize}
+
+\subsection{[10pts] K-means and GMM}
+在《机器学习》9.4.3节中, 我们在聚类问题下推导了高斯混合模型(GMM)的EM算法, 即高斯混合聚类. 沿用该小节中的记号, 我们考虑一种简化后的高斯混合模型, 
+其中高斯混合分布共由$k$个混合成分组成, 且每个混合成分拥有相同的协方差矩阵$\Sigma_i = \epsilon^2 \mathbf{I}, i \in [k]$.
+假设$\exists \delta > 0$使得对于选择各个混合成分的概率有$\alpha_i \geq \delta, \forall i \in [k]$, 并且在
+高斯混合聚类的迭代过程中始终有
+$\|\x_i - \bds{\mu}_k\|^2 \neq \|\x_i - \bds{\mu}_{k^\prime}\|^2, \forall i \in [n], k \neq k^\prime$成立.
+
+\begin{itemize}
+    \item[(3)] \textbf{[10pts]} 请证明: 随着$\epsilon^2 \to 0$, 高斯混合聚类中的$\mathbf{E}$步会收敛至$k$均值聚类算法中
+    簇划分的更新规则, 即每个样本点仅指派给一个高斯成分. 由此可见, $k$均值聚类算法是高斯混合聚类的一种特例.
+\end{itemize}
+
+\subsection{[20pts] Convergence Analysis}
+EM算法广泛应用于机器学习等其他领域, 其中一个原因是它拥有着良好的理论保障: 
+随着$\mathbf{E}$步与$\mathbf{M}$步的迭代执行直至收敛, 已观测数据的对数“边际似然”$LL(\Theta \given \X)$将单调非减. 
+沿用《机器学习》7.6节中的符号定义, 我们将试图证明该结论.
+
+\begin{itemize}
+    \item[(4)] \textbf{[5pts]} 请证明在$\mathbf{E}$步中, $LL(\Theta|\X)$可以被分拆为两项:
+    \begin{align*}
+        LL(\Theta \given \X) = Q(\Theta \given \Theta^t) - H(\Theta \given \Theta^t),
+    \end{align*}
+    其中$H(\Theta \given \Theta_t) = \sum_{\bds{Z}} P(\bds{Z} \given \X, \Theta^t) \ln(\bds{Z} \given \X, \Theta)$, 
+    $Q(\Theta \given \Theta^t)$的定义见课本(7.36)式.
+
+    \item[(5)] \textbf{[10pts]} 请证明$H(\Theta \given \Theta^t)$满足以下性质:
+    \begin{align*}
+        \Theta^t = \operatorname{\arg \max}_{\Theta} H(\Theta \given \Theta^t).
+    \end{align*}
+    (提示: 使用Jensen不等式)
+
+    \item[(6)] \textbf{[5pts]} 请证明在EM算法的迭代过程中, 已观测数据关于当前参数$\Theta^t$的对数“边际似然”单调非减, 即
+    \begin{align*}
+        LL(\Theta^{t+1} \given \X) \geq LL(\Theta^t \given \X).
+    \end{align*}
+   
+\end{itemize}
+
+\begin{solution}
+    此处用于写解答(中英文均可)
+    \begin{table}[H]
+        \centering
+        \setlength{\abovecaptionskip}{0pt}
+        \setlength{\belowcaptionskip}{5pt}
+        \caption{实验数据}
+        \label{table: EM}
+        \resizebox{\textwidth}{!}{
+        \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        抛掷结果 & 选择A的概率 & 选择B的概率 & A朝上次数的期望值 & B朝上次数的期望值 \\ \hline
+        HTTTHHTHTH  &    44.91\%    &   55.09\%     &    2.2457       &     2.7543      \\ \hline
+        HHHHTHHHHH   &   80.50\%     &   19.50\%     &     7.2449      &      1.7551     \\ \hline
+        HTHHHHHTHH   &   73.35\%     &   26.65\%     &     5.8677      &      2.1323     \\ \hline
+        \end{tabular}}
+    \end{table}
+    \begin{enumerate}
+        \item [(2)]
+        由极大似然估计: 
+        \begin{align*}
+            \theta_{A}^{(1)}&= \frac{2.2457+7.2449+5.8677}{2.2457+7.2449+5.8677+4.5177}=0.7727 \\ \theta_{B}^{(1)}&=\frac{2.7543+1.7551+2.1323}{2.7543+1.7551+2.1323+3.4823}=0.6560
+        \end{align*}
+        \item [(3)]
+
+
+
+% 欲证随着 $\epsilon^2 \rightarrow 0$，高斯混合聚类中的E步会收敛至k均值聚类算法中簇划分的更新规则，即每个样本点仅指派给一个高斯成分，只需证两个方面:
+
+% \begin{enumerate}
+%   \item 对于每个样本点 $x_i$，随着 $\epsilon^2 \rightarrow 0$，其只会被指派给一个高斯成分。 \\
+%   假设在E步的迭代过程中，存在一个样本点 $x_i$ 被指派给两个不同的高斯成分($k$ 和 $k'$). 在高斯混合聚类的迭代过程中，对于不同的高斯成分，样本点 $x_i$ 到均值向量的欧氏距离是不相等的，即 $\|x_i-\mu_k\|^2 \neq \|x_i-\mu_{k'}\|^2$. 考虑高斯混合模型的E步更新规则，对于样本点 $x_i$，其被指派到第 $j$ 个高斯成分的概率为：
+%   \[
+%   P(Z_i=j|x_i) = \frac{\alpha_j N(x_i|\mu_j, \Sigma_j)}{\sum_{m=1}^k (\alpha_m N(x_i|\mu_m, \Sigma_m))}
+%   \]
+%   当 $\epsilon^2 \rightarrow 0$ 时，协方差矩阵 $\Sigma_j=\epsilon^2I$ 趋近于零矩阵。由高斯分布的性质，当协方差矩阵趋近于零矩阵时，多维高斯分布退化为一个点，即 $N(x_i|\mu_j, \Sigma_j)$ 趋近于0。因此，在E步中，对于每个样本点 $x_i$，当 $\epsilon^2 \rightarrow 0$ 时，其只会被指派给一个高斯成分。
+  
+%   \item 对于每个高斯成分，随着 $\epsilon^2 \rightarrow 0$，其对应的权重 $\alpha_i$ 会趋近于1。\\
+%   根据题目中的假设，对于选择各个混合成分的概率有 $\alpha_i \geq \delta$，且 $\delta > 0$.
+
+%   在E步中，样本点 $x_i$ 被指派到第 $j$ 个高斯成分的概率为：
+%   \[
+%   P(Z_i=j|x_i) = \frac{\alpha_j N(x_i|\mu_j, \Sigma_j)}{\sum_{m=1}^k (\alpha_m N(x_i|\mu_m, \Sigma_m))}
+%   \]
+
+%   当 $\epsilon^2 \rightarrow 0$ 时，协方差矩阵 $\Sigma_j=\epsilon^2I$ 趋近于零矩阵。由于高斯分布的性质，当协方差矩阵趋近于零矩阵时，多维高斯分布变为均值 $\mu_j$ 处的一个峰值，其概率密度函数趋近于无穷大。因此，对于每个高斯成分，当 $\epsilon^2 \rightarrow 0$ 时，其对应的权重 $\alpha_i$ 会趋近于1。
+% \end{enumerate}
+
+
+% 综上所述，随着 $\epsilon^2 \rightarrow 0$，高斯混合聚类中的E步会收敛至k均值聚类算法中簇划分的更新规则，即每个样本点仅指派给一个高斯成分。因此，k均值聚类算法可以看作是高斯混合聚类的一种特例。
+
+令$\gamma_{j i}$表示样本 $x_j$ 由第 i 个高斯分布生成的后验概率.则:
+\\ 
+$$
+\begin{aligned}
+\gamma_{j i} & =\frac{\alpha_{i} \cdot p\left(\boldsymbol{x}_{j} \mid \boldsymbol{\mu}_{i}, \boldsymbol{\Sigma}_{i}\right)}{\sum_{\ell=1}^{k} \alpha_{\ell} \cdot p\left(\boldsymbol{x}_{j} \mid \boldsymbol{\mu}_{\ell}, \boldsymbol{\Sigma}_{\ell}\right)}\\
+& =\frac{\frac{\alpha_{i}}{(2 \pi)^{\frac{\pi}{2}}\left|\boldsymbol{\Sigma}_{i}\right|^{\frac{1}{2}}} e^{-\frac{1}{2}\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{i}\right)^{\top} \boldsymbol{\Sigma}_{i}^{-1}\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{i}\right)}}{\sum_{\ell=1}^{k} \frac{\alpha_{\ell}}{(2 \pi)^{\frac{\pi}{2}}\left|\boldsymbol{\Sigma}_{\ell}\right|^{\frac{1}{2}}} e^{-\frac{1}{2}\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{\ell}\right)^{\top} \boldsymbol{\Sigma}_{\ell}^{-1}\left(\boldsymbol{x}_{j}-\boldsymbol{\mu}_{\ell}\right)}}\\
+& =\frac{\alpha_i}{\sum_{\ell=1}^k \alpha_{\ell} \exp \left(\frac{\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_i\right\|^2-\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_{\ell}\right\|^2}{2|\epsilon|^{2 n}}\right)} 
+\end{aligned}
+$$
+记 $i^{\star}=\underset{l}{\arg \min }\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_{l}\right\|^2$.\\
+\begin{itemize}
+    \item $i \neq i^{\star}$ 时：\\
+    $\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_i\right\|^2-\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_{i^{\star}}\right\|^2>0$, 又$\epsilon^2 \rightarrow 0$, 即$\mid\epsilon\mid\rightarrow 0$.\\
+    $\therefore \exp \left(\frac{\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_i\right\|^2-\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_i \star\right\|^2}{2|\epsilon|^{2 n}}\right) \rightarrow+\infty$\\
+    根据题意$\exists \delta>0$ 使得对于选择各个混合成分的概率有$\alpha_i>\delta, \forall i \in[k]$, 故:
+    $$
+    \begin{aligned}
+    \sum_{\ell=1}^k \alpha_{\ell} \exp \left(\frac{\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_i\right\|^2-\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_{\ell}\right\|^2}{2|\epsilon|^{2 n}}\right) & \geq \delta \sum_{\ell=1}^k \exp \left(\frac{\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_i\right\|^2-\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_{\ell}\right\|^2}{2|\epsilon|^{2 n}}\right) \\
+    & >\delta \exp \left(\frac{\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_i\right\|^2-\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_{i^{\star}}\right\|^2}{2|\epsilon|^{2 n}}\right) \\
+    & \rightarrow+\infty
+    \end{aligned}
+    $$
+    $\therefore \gamma_{j i} \rightarrow 0$
+    \item $i = i^{\star}$时: \\
+    有$\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_i\right\|^2-\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_{\ell}\right\|^2<0$, 进而有$\frac{\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_i\right\|^2-\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_{\ell}\right\|^2}{2|\epsilon|^{2 n}} \rightarrow-\infty$ \\
+    $\exp \left(\frac{\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_i\right\|^2-\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_i \star\right\|^2}{2|\epsilon|^{2 n}}\right) \rightarrow 0$
+    $$
+    \begin{aligned}
+    \sum_{\ell=1}^k \alpha_{\ell} \exp \left(\frac{\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_i\right\|^2-\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_{\ell}\right\|^2}{2|\epsilon|^{2 n}}\right) & \rightarrow \alpha_{i^{\star}} \exp \left(\frac{\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_i\right\|^2-\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_{i^{\star}}\right\|^2}{2|\epsilon|^{2 n}}\right)\\
+    & =\alpha_{i^{\star}}
+    \end{aligned}
+    $$
+    $\therefore \gamma_{j i} \rightarrow \frac{\alpha_i}{\alpha_{i^*}}=1$
+\end{itemize}
+综上, 
+$$\lim _{\epsilon \rightarrow 0} \gamma_{j i}= \begin{cases}0 & \text { if }\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_i\right\|^2 \geq\left\|\boldsymbol{x}_j-\boldsymbol{\mu}_{l}\right\|^2, \forall l \in[k] \\ 1 & \text { else }\end{cases}$$
+随着 $\epsilon^2 \rightarrow 0$，高斯混合聚类中的E步会收敛至k均值聚类算法中簇划分的更新规则，即每个样本点仅指派给一个高斯成分。因此，k均值聚类算法可以看作是高斯混合聚类的一种特例。
+
+        \item [(4)]
+        证明如下:
+        \begin{equation}
+            \begin{aligned}
+                Q\left(\boldsymbol{\Theta} \mid \boldsymbol{\Theta}_{t}\right)-H\left(\boldsymbol{\Theta} \mid \Theta^{t}\right) & = \mathbb{E}_{\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}^{t}} L L(\boldsymbol{\Theta} \mid \boldsymbol{X}, \boldsymbol{Z})-\sum_{\boldsymbol{Z}} P\left(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}^{t}\right) \ln P(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}) \\
+                & =\sum_{\boldsymbol{Z}} P\left(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}^{t}\right)(L L(\boldsymbol{\Theta} \mid \boldsymbol{X}, \boldsymbol{Z})-\ln P(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta})) \\
+                & =\sum_{\boldsymbol{Z}} P\left(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}^{t}\right)(\ln P(\boldsymbol{X}, \boldsymbol{Z} \mid \boldsymbol{\Theta})-\ln P(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta})) \\
+                &=\sum_{\boldsymbol{Z}} P\left(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}^{t}\right)\left(\ln \frac{P(\boldsymbol{X}, \boldsymbol{Z} \mid \boldsymbol{\Theta})}{P(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta})}\right) \\
+                &=\sum_{\boldsymbol{Z}} P\left(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}^{t}\right)(\ln P(\boldsymbol{X} \mid \boldsymbol{\Theta})) \\
+                &=(\ln P(\boldsymbol{X} \mid \boldsymbol{\Theta})) \sum_{\boldsymbol{Z}} P\left(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}^{t}\right) \\
+                &=\ln P(\boldsymbol{X} \mid \boldsymbol{\Theta}) \\
+                &=L L(\boldsymbol{\Theta} \mid \boldsymbol{X})
+                \end{aligned} \nonumber
+        \end{equation}
+        \item [(5)]
+        证明如下:
+        \begin{equation}
+            \begin{aligned} H\left(\boldsymbol{\Theta} \mid \Theta^{t}\right)-H\left(\boldsymbol{\Theta}^{t} \mid \boldsymbol{\Theta}^{t}\right) & =\sum_{\boldsymbol{Z}} P\left(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}^{t}\right) \ln P(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta})-\sum_{\boldsymbol{Z}} P\left(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}^{t}\right) \ln P\left(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}^{t}\right) \\ & =\sum_{\boldsymbol{Z}} P\left(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}^{t}\right) \ln \frac{P(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta})}{P\left(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}^{t}\right)} \\ & \leq \ln \sum_{\boldsymbol{Z}} P\left(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}^{t}\right) \frac{P(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta})}{P\left(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}^{t}\right)} \\ & =\ln \sum_{\boldsymbol{Z}} P(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}) \\ & =0\end{aligned} \nonumber
+        \end{equation}
+        其中不等式是使用了Jensen不等式，当且仅当$P(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta})=P\left(\boldsymbol{Z} \mid \boldsymbol{X}, \boldsymbol{\Theta}^{t}\right)$即$\boldsymbol{\Theta}=\boldsymbol{\Theta}^{t}$时等号成立. \\
+        因此$\Theta^{t}=\underset{\Theta}{\arg \max } H\left(\Theta \mid \Theta^{t}\right)$.
+        \item [(6)]
+        由(5)可知$H\left(\boldsymbol{\Theta}^{t+1} \mid \boldsymbol{\Theta}^{t}\right) \leq H\left(\boldsymbol{\Theta}^{t} \mid \boldsymbol{\Theta}^{t}\right)$ \\
+        由M步更新规则$\boldsymbol{\Theta}^{t+1}=\underset{\boldsymbol{\Theta}}{\arg \max } Q\left(\boldsymbol{\Theta} \mid \mathbf{\Theta}^{t}\right)$可知$Q\left(\boldsymbol{\Theta}^{t+1} \mid \boldsymbol{\Theta}^{t}\right) \geq Q\left(\boldsymbol{\Theta}^{t} \mid \boldsymbol{\Theta}^{t}\right)$  \\
+        因此:
+        \begin{align*} L L\left(\Theta^{t+1} \mid \boldsymbol{X}\right) & =Q\left(\Theta^{t+1} \mid \Theta^{t}\right)-H\left(\Theta^{t+1} \mid \Theta^{t}\right) \\ & \geq Q\left(\Theta^{t} \mid \Theta^{t}\right)-H\left(\Theta^{t} \mid \Theta^{t}\right) =L L\left(\Theta^{t} \mid \boldsymbol{X}\right)\end{align*}
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\section{[30pts] Boosting}
+Boosting算法有序地训练一批弱学习器进行集成得到一个强学习器, 其中最著名的代表便是AdaBoost.
+该算法通过迭代地调整训练样本分布, 可以使得经验误差会随着学习轮数$T$指数级下降. 不仅如此, AdaBoost还拥有很好的泛化性能保障,
+其泛化误差在经验误差达到最小后仍然能持续地降低. 本题将针对AdaBoost算法展开更加深入的讨论.
+\subsection{[15pts] AdaBoost Empirical Error Bound}
+
+考虑训练集$D = \{(\x_1, y_1), \cdots, (\x_m, y_m)\}$, $y_m \in \{-1, +1\}$, 
+参照《机器学习》第八章图8.3的变量定义, 我们将证明如下定理: AdaBoost迭代$T$轮后返回的分类器$f$, 经验误差满足
+\begin{align*}
+    \hat R_{D}(f) = \frac{1}{m} \sum_{i=1}^m 1_{y_i f(\x_i) \leq 0} \leq \exp\left[-2 \sum_{t=1}^T \left(\frac12 - \epsilon_t\right)^2\right].
+\end{align*}
+
+进一步地, 若对于任意的$t \in [T]$, $\gamma \leq (\frac12 - \epsilon_t)$, 那么有
+\begin{align*}
+    \hat R_{D}(f) \leq \exp(-2\gamma^2 T).
+\end{align*}
+
+\begin{enumerate}
+    \item[(1)] \textbf{[5pts]} 请证明数据分布$D_t$的调整过程满足: 
+    \begin{align*}
+        \mathcal{D}_{t+1}(\x) = \frac{e^{-y_i \sum_{s=1}^t \alpha_s h_s(\x)}}{m \prod_{s=1}^t Z_s}, \quad \forall t \in [T].
+    \end{align*}
+
+    \item[(2)] \textbf{[5pts]} 请证明规范化因子$Z_t$与基学习器误差$\epsilon_t$的关系: 
+    \begin{align*}
+        Z_t = 2 \sqrt{\epsilon_t(1-\epsilon_t)}, \quad \forall t \in [T].
+    \end{align*}
+
+    \item[(3)] \textbf{[5pts]} 利用前两问的结论, 完成题给定理的证明.
+
+    (提示: 使用不等式$\mathbb{I}(u\leq 0) \leq \exp{(-u)}, \ \forall u \in \mathbb{R}$)
+
+\end{enumerate}
+
+\subsection{[15pts] Multi-Class AdaBoost}
+AdaBoost的应用场景可以从二分类拓展到多分类, 一种经典的扩展方法为SAMME~(Stagewise Additive Modeling
+using a Multi-class Exponential loss function). 该算法首先将样本的标记$c \in [K]$编码为$K$维向量$\y$, 其中目标类别对应位置的值为1, 其余类别对应位置的值为
+$-\frac{1}{K-1}$, 即
+\begin{align*}
+    y_k = \begin{cases}
+        1, & \text{若$c = k$}, \\
+        -\frac{1}{K-1}, & \text{若$c \neq k$}.
+    \end{cases}
+\end{align*}
+同时, 基学习器的输出$h_t(\x)$为$K$维向量, 不失一般性可以约束$h_t(\x)$的各个维度和为零. 记基学习器的线性组合为$H(\x)$, SAMME使用的多分类指数损失函数为:
+\begin{align*}
+    \ell_{\text{multi-exp}}(H|\mathcal{D}) = \mathbb{E}_{\x \sim \mathcal{D}}\left[e^{-\frac{1}{K} \sum_{k=1}^K \y_k[H(\x)]_k}\right]=\mathbb{E}_{\x \sim \mathcal{D}}\left[e^{-\frac{1}{K} \y^{\top} H(\x)}\right].
+\end{align*}
+
+\begin{enumerate}
+    \item[(4)] 考虑优化问题如下
+    \begin{align*}
+        \min _{H(\x)} & \quad \mathbb{E}_{\Y|\x} \exp\left(-\frac{1}{K}(Y_1H(\x)_1 + \cdots + Y_K H(\x)_K)\right)\\
+        \text { s.t. } & \quad H(\x)_1 + \cdots H(\x)_K = 0.
+    \end{align*}
+    请证明对于最优解$H^\star(\x)$, $\text{sign}(H^\star(\x))$达到了贝叶斯最优错误率, 即SAMME使用的多分类指数损失函数
+    是0/1损失函数的一致的替代损失函数.
+
+    (提示: 使用拉格朗日乘子法)
+\end{enumerate}
+
+\begin{solution}
+	此处用于写解答(中英文均可)
+    \begin{enumerate}
+        \item [(1)]
+        证明如下:
+        \begin{equation}
+            \begin{aligned} \mathcal{D}_{t+1}(\boldsymbol{x}) & = \frac{\mathcal{D}_{t}\exp \left(-\alpha_{t} f(\boldsymbol{x}) h_{t}(\boldsymbol{x})\right)}{Z_{t}} \\ &= \frac{\exp \left(-\alpha_{t} f(\boldsymbol{x}) h_{t}(\boldsymbol{x})\right)}{Z_{t}} \times \frac{\exp \left(-\alpha_{t-1} f(\boldsymbol{x}) h_{t-1}(\boldsymbol{x})\right)}{Z_{t-1}} \times \mathcal{D}_{t-1}\\ &= \cdots \\&= \mathcal{D}_{1}(\boldsymbol{x}) \prod_{s=1}^{t} \frac{\exp \left(-\alpha_{s} f(\boldsymbol{x}) h_{s}(\boldsymbol{x})\right)}{Z_{s}}\\& =\frac{1}{m} \prod_{s=1}^{t} \frac{\exp \left(-\alpha_{s} f(\boldsymbol{x}) h_{s}(\boldsymbol{x})\right)}{Z_{s}} \\ & =\frac{1}{m} \frac{\exp \left(-\sum_{s=1}^{t} \alpha_{s} f(\boldsymbol{x}) h_{s}(\boldsymbol{x})\right)}{\prod_{s=1}^{t} Z_{s}} \\ & =\frac{\exp \left(-y \sum_{s=1}^{t} \alpha_{s} h_{s}(\boldsymbol{x})\right)}{m \prod_{s=1}^{t} Z_{s}}\end{aligned} \nonumber
+        \end{equation}
+        \item [(2)]
+        规范化因子$Z_t$的作用是确保$\mathcal{D}_{t+1}$是一个分布, 即保证$\sum_{\boldsymbol{x}} \mathcal{D}_{t+1}(\boldsymbol{x}) = 1$. \\
+        \begin{equation}
+            \begin{aligned}
+                \sum_{\boldsymbol{x}} \mathcal{D}_{t+1}(\boldsymbol{x})&=\sum_{\boldsymbol{x}} \frac{\mathcal{D}_{t}(\boldsymbol{x})}{Z_{t}} \times\left\{\begin{array}{ll}\exp \left(-\alpha_{t}\right), & \text { if } h_{t}(\boldsymbol{x})=f(\boldsymbol{x}) \\ \exp \left(\alpha_{t}\right), & \text { if } h_{t}(\boldsymbol{x}) \neq f(\boldsymbol{x})\end{array}\right. \\ & =\frac{1}{Z_{t}}\left(\sum_{h_{t}(\boldsymbol{x})=f(\boldsymbol{x})} \mathcal{D}_{t}(\boldsymbol{x}) e^{-\alpha_{t}}+\sum_{h_{t}(\boldsymbol{x}) \neq f(\boldsymbol{x})} \mathcal{D}_{t}(\boldsymbol{x}) e^{\alpha_{t}}\right) \\ & =\frac{1}{Z_{t}}\left(\left(1-\epsilon_{t}\right) e^{-\alpha_{t}}+\epsilon_{t} e^{\alpha_{t}}\right) \\ & =\frac{2 \sqrt{\epsilon_{t}\left(1-\epsilon_{t}\right)}}{Z_{t}}
+            \end{aligned}
+        \end{equation}
+        最后一个等式是把$\alpha_{t} = \frac{1}{2} \ln \frac{1-\epsilon_{t}}{\epsilon_{t}}$代入得到. \\
+        因此$\frac{2 \sqrt{\epsilon_{t}\left(1-\epsilon_{t}\right)}}{Z_{t}} = 1$, 解得: $Z_{t}=2 \sqrt{\epsilon_{t}\left(1-\epsilon_{t}\right)}$.
+        \item [(3)]
+        证明如下:
+        \begin{equation}
+            \begin{aligned} \hat{R}_{D}(f) & =\frac{1}{m} \sum_{i=1}^{m} 1_{y_{i} f\left(\boldsymbol{x}_{i}\right) \leq 0} \\ & \leq \frac{1}{m} \sum_{i=1}^{m} \exp \left(-y_{i} f\left(\boldsymbol{x}_{i}\right)\right) \\ & =\sum_{i=1}^{m} \mathcal{D}\left(\boldsymbol{x}_{i}\right) \prod_{t=1}^{T} Z_{t} \\ & =\prod_{t=1}^{T} 2 \sqrt{\epsilon_{t}\left(1-\epsilon_{t}\right)} \\
+            &= \prod_{t=1}^{T} \sqrt{(1-2\gamma_t)(1+2\gamma_t)} \quad (\gamma_t = \frac{1}{2}-\epsilon_t)\\ &= \prod_{t=1}^{T} \sqrt{1-4\gamma_{t}^{2}}\\&\leq \prod_{t=1}^{T} \sqrt{\exp (-4\gamma_{t}^{2})} \quad (1+x \leqslant \exp (x))\\ &=\prod_{t=1}^{T} \exp \left(-2\gamma_{t}^{2}\right) \\ &=\exp \left(-2 \sum_{t=1}^{T}\left(\frac{1}{2}-\epsilon_{t}\right)^{2}\right)\end{aligned} \nonumber
+        \end{equation}
+        进一步地，若对于任意$t \in[T], \gamma \leq\left(\frac{1}{2}-\epsilon_{t}\right)$,则$\gamma^2 \leq \left(\frac{1}{2}-\epsilon_{t}\right)^2$, $\sum_{t=1}^{T}\gamma^2 \leq \sum_{t=1}^{T}\left(\frac{1}{2}-\epsilon_{t}\right)^2$.
+        \begin{equation}
+            \begin{aligned}
+                \hat{R}_{D}(f) & \leq \exp \left(-2 \sum_{t=1}^{T}\left(\frac{1}{2}-\epsilon_{t}\right)^{2}\right) \\
+                & \leq \exp \left(-2 \sum_{t=1}^{T}\gamma^{2}\right) \\
+                &= \exp \left(-2 \gamma^{2}T\right) \nonumber
+            \end{aligned}
+        \end{equation}
+        \item [(4)]
+        原问题的拉格朗日函数:
+        \begin{equation}
+            \begin{aligned} L(\boldsymbol{x}, \lambda) & =\mathbb{E}_{\boldsymbol{Y} \mid \boldsymbol{x}} \exp \left(-\frac{1}{K}\left(Y_{1} H(\boldsymbol{x})_{1}+\cdots+Y_{K} H(\boldsymbol{x})_{K}\right)\right)-\lambda \left(H(\boldsymbol{x})_1 + \cdots H(\boldsymbol{x})_K \right) \\ & =\sum_{i=1}^{K}\left(P(y=k \mid \boldsymbol{x}) \exp \left(-\frac{1}{K}\left(Y_{1} H(\boldsymbol{x})_{1}+\cdots+Y_{K} H(\boldsymbol{x})_{K}\right)\right)-\lambda H(\boldsymbol{x})_{k}\right) \\ &= \sum_{i=1}^{K}\left(P(y=k \mid \boldsymbol{x}) \exp \left(-\frac{1}{K}\left(H(\boldsymbol{x})_{k}-\frac{1}{K-1} \sum_{j \neq k} H(\boldsymbol{x})_{j}\right)\right)-\lambda H(\boldsymbol{x})_{k}\right)\\& =\sum_{i=1}^{K}\left(P(y=k \mid \boldsymbol{x}) \exp \left(-\frac{1}{K}\left(H(\boldsymbol{x})_{k}-\frac{1}{K-1} (0-H (\boldsymbol{x})_k)\right)\right)-\lambda H(\boldsymbol{x})_{k}\right) \\ & =\sum_{i=1}^{K}\left(P(y=k \mid \boldsymbol{x}) \exp \left(-\frac{H(\boldsymbol{x})_{k}}{K-1}\right)-\lambda H(\boldsymbol{x})_{k}\right)\end{aligned} \nonumber
+        \end{equation}
+        求导可得:
+        $$\frac{\partial}{\partial H(\boldsymbol{x})_{k}} \mathcal{L}(\boldsymbol{x}, \lambda)=-\frac{1}{K-1} P(y=k \mid \boldsymbol{x}) \exp \left(-\frac{H(\boldsymbol{x})_{k}}{K-1}\right)-\lambda$$
+        令导数为0, 可得:
+        $$H^{\star}(\boldsymbol{x})_{k}=(K-1)(\ln P(y=k \mid \boldsymbol{x})-\ln (-(K-1) \lambda))$$
+        因为$\sum_{k=1}^{K} H^{\star}(\boldsymbol{x})_{k} = 0$ \\
+        所以$\ln (-(K-1) \lambda)=\frac{1}{K} \ln \prod_{k=1}^{K} P(y=k \mid \boldsymbol{x})=\frac{1}{K} \sum_{k=1}^{K} \ln P(y=k \mid \boldsymbol{x})$ \\
+        所以$H^{\star}(\boldsymbol{x})_{k}=(K-1)\left(\ln P(y=k \mid \boldsymbol{x})-\frac{1}{K} \sum_{i=1}^{K} \ln P(y=i \mid \boldsymbol{x})\right)$ \\
+        学习器的输出是一个$K$维向量，根据题目的定义，应该选择输出向量中最大的分量对应的位置作为预测类别，即预测类别$\underset{k \in [K]}{\arg \max } H^{\star}(\boldsymbol{x})_{k}=\underset{k \in [K]}{\arg \max } \ln P(y=k \mid \boldsymbol{x})=\underset{k \in [K]}{\arg \max } P(y=k \mid \boldsymbol{x})$.\\
+        说明$\underset{k \in [K]}{\arg \max } H^{\star}(\boldsymbol{x})_{k}$达到了贝叶斯最优分类率，即 SAMME 使用
+        的多分类指数损失函数是 0/1 损失函数的一致的替代损失函数.
+    \end{enumerate}
+\end{solution}
+
+\newpage
+
+\section{[20pts] Bagging}
+考虑回归学习任务$f: \mathbb{R}^d \to \mathbb{R}$. 假设已经训练得到$M$个基学习器$\hat f_1(\x), \hat f_2(\x), \cdots, \hat f_M(\x)$.
+我们可以将基学习器的预测值看作真实值加上偏差项
+\begin{align*}
+    \hat f_m(\x) = f(\x) + \epsilon_m(\x), \quad \forall m \in [M],
+\end{align*}
+每个基学习器的期望平方误差即为$\mathbb{E}_{\x}\left[\epsilon_m(\x)^2\right]$. 所有基学习器的期望平方误差的均值为
+\begin{align*}
+    E_{avg} = \frac{1}{M} \sum_{m=1}^M \mathbb{E}_{\x} \left[\epsilon_m(\x)^2\right].
+\end{align*}
+与此同时, $M$个基学习器通过集成得到的Bagging模型为
+\begin{align*}
+    \hat f_{bag}(\x) = \frac{1}{M} \sum_{m=1}^M \hat f_m(\x),
+\end{align*}
+于是该Bagging模型在单个样本上的误差为
+\begin{align*}
+    \epsilon_{bag}(\x) = \hat f_{bag}(\x) - f(\x) = \frac{1}{M} \sum_{m=1}^M \epsilon_m(\x),
+\end{align*}
+其期望平方误差即为
+\begin{align*}
+    E_{bag} = \mathbb{E}_{\x}\left[\epsilon_{bag}(\x)^2\right].
+\end{align*}
+
+\begin{enumerate}
+    \item[(1)] \textbf{[5pts]} 假设个体学习器相互独立: $\forall m \neq l, \mathbb{E}_{\x}[\epsilon_m(\x)\epsilon_{l}(\x)] = 0$. 在这种理想情形下, 请证明$E_{avg}$与$E_{bag}$满足
+    \begin{align*}
+        E_{bag} = \frac{1}{M} E_{avg}.
+    \end{align*}
+    \item[(2)] \textbf{[10pts]} 现实任务中, 基学习器相互独立通常无法满足. 假设$\epsilon_1(\x), \cdots, \epsilon_M(\x)$满足
+    $\mathbb{E}[\epsilon_m(\x)] = \mu, \text{var}[\epsilon_m(\x)] = \sigma^2, \forall m \in [M]$, 且彼此之间的线性相关系数均为$\rho$. 请证明
+    \begin{align*}
+        \text{var}[\epsilon_{bag}(\x)] = \rho \sigma^2 + \frac{1 - \rho}{M}\sigma^2.
+    \end{align*}
+    可见随着基学习器数量$M$增多, Bagging模型误差的方差将主要受制于基学习器之间的相关性. 
+    请简要叙述随机森林算法是如何降低基决策树之间的相关性的. 
+    \item[(3)] \textbf{[5pts]} 请证明无需对$\epsilon_1(\x), \cdots, \epsilon_M(\x)$做任何假设, $E_{bag} \leq E_{avg}$始终成立.
+    
+    (提示: 使用Jensen不等式)
+\end{enumerate}
+
+\begin{solution}
+	此处用于写解答(中英文均可)
+	\begin{enumerate}
+        \item [(1)]
+        记$p(x)$为样本分布的概率密度函数，个体学习器相互独立: 
+        $$\forall m \neq l, \mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x}) \epsilon_{l}(\boldsymbol{x})\right]=0$$
+        也即
+        $$\forall m \neq l, \int_{\boldsymbol{x}} p(\boldsymbol{x}) \epsilon_{m}(\boldsymbol{x}) \epsilon_{\ell}(\boldsymbol{x}) \mathrm{d} \boldsymbol{x}=0$$
+        \newpage
+        \begin{equation}
+            \begin{aligned} \mathbb{E}_{\mathrm{bag}}& =\int_{\boldsymbol{x}} p(\boldsymbol{x}) \epsilon_{\mathrm{bag}}^{2}(\boldsymbol{x}) \mathrm{d} \boldsymbol{x} \\
+            &=\int_{\boldsymbol{x}} p(\boldsymbol{x}) \frac{1}{M^{2}}\left(\sum_{m=1}^{M} \epsilon_{m}(\boldsymbol{x})\right)^{2} \mathrm{~d} \boldsymbol{x} \\ &=\frac{1}{M^{2}} \int_{\boldsymbol{x}} p(\boldsymbol{x}) \sum_{\substack{m=1}}^{M} \sum_{\substack{l=1}}^{M}\epsilon_{m}(\boldsymbol{x}) \epsilon_{\ell}(\boldsymbol{x}) \mathrm{d} \boldsymbol{x} \\ &=\frac{1}{M^{2}} \sum_{\substack{m=1}}^{M}\sum_{\substack{l=1}}^{M} \int_{\boldsymbol{x}} p(\boldsymbol{x}) \epsilon_{m}(\boldsymbol{x}) \epsilon_{\ell}(\boldsymbol{x}) \mathrm{d} \boldsymbol{x} \\ &=\frac{1}{M^{2}} \sum_{m=1}^{M} \int_{\boldsymbol{x}} p(\boldsymbol{x}) \epsilon_{m}^{2}(\boldsymbol{x}) \mathrm{d} \boldsymbol{x}+\frac{2}{M^{2}} \sum_{1 \leq m<\ell \leq M} \int_{\boldsymbol{x}} p(\boldsymbol{x}) \epsilon_{m}(\boldsymbol{x}) \epsilon_{\ell}(\boldsymbol{x}) \mathrm{d} \boldsymbol{x} \\ &=\frac{1}{M^{2}} \sum_{m=1}^{M} \int_{\boldsymbol{x}} p(\boldsymbol{x}) \epsilon_{m}^{2}(\boldsymbol{x}) \mathrm{d} \boldsymbol{x} \\ &=\frac{1}{M^{2}} \sum_{m=1}^{M} \mathbb{E}_{x}\left[\epsilon_{m}^{2}(\boldsymbol{x})\right] \\ &=\frac{1}{M} \boldsymbol{E}_{\mathrm{avg}} \end{aligned} \nonumber
+        \end{equation}
+        \item [(2)]
+        证明如下:
+        \begin{equation}
+            \begin{aligned} \mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{\mathrm{bag}}^{2}(\boldsymbol{x})\right]= & \frac{1}{M^{2}} \sum_{m=1}^{M} \int_{\boldsymbol{x}} p(\boldsymbol{x}) \epsilon_{m}^{2}(\boldsymbol{x}) \mathrm{d} \boldsymbol{x}+\frac{2}{M^{2}} \sum_{1 \leq m<\ell \leq M} \int_{\boldsymbol{x}} p(\boldsymbol{x}) \epsilon_{m}(\boldsymbol{x}) \epsilon_{\ell}(\boldsymbol{x}) \mathrm{d} \boldsymbol{x} \\ = & \frac{1}{M^{2}} \sum_{m=1}^{M}\left(\mathbb{E}_{\boldsymbol{x}}^{2}\left[\epsilon_{m}(\boldsymbol{x})\right]+\operatorname{Var}_{\boldsymbol{x}}\left(\epsilon_{m}(\boldsymbol{x})\right)\right) \\ & +\frac{2}{M^{2}} \sum_{1 \leq m<\ell \leq M}\left(\mathbb{E}_{\boldsymbol{x}}^{2}\left[\epsilon_{m}(\boldsymbol{x})\right]+r_{\boldsymbol{x}}\left(\epsilon_{m}(\boldsymbol{x}), \epsilon_{\ell}(\boldsymbol{x})\right) \sqrt{\operatorname{Var}_{\boldsymbol{x}}^{2}\left(\epsilon_{m}(\boldsymbol{x})\right) \operatorname{Var}_{\boldsymbol{x}}^{2}\left(\epsilon_{\ell}(\boldsymbol{x})\right)}\right) \\ = & \frac{1}{M^{2}} \sum_{m=1}^{M}\left(\mu^{2}+\sigma^{2}\right)+\frac{2}{M^{2}} \sum_{1 \leq m<\ell \leq M}\left(\mu^{2}+\rho \sigma^{2}\right) \\ = & \frac{1}{M}\left(\mu^{2}+\sigma^{2}\right)+\frac{M-1}{M}\left(\mu^{2}+\rho \sigma^{2}\right) \\ = & \mu^{2}+\rho \sigma^{2}+\frac{1-\rho}{M} \sigma^{2}\\
+            \mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{\text {bag }}(\boldsymbol{x})\right]  =& \int_{\boldsymbol{x} } p(\boldsymbol{x}) \epsilon_{\text {bag }}(\boldsymbol{x}) \mathrm{d} \boldsymbol{x} \\  =&\frac{1}{M} \int_{\boldsymbol{x}} p(\boldsymbol{x}) \sum_{m=1}^{M} \epsilon_{m}(\boldsymbol{x}) \mathrm{d} \boldsymbol{x} \\  =&\frac{1}{M} \sum_{m=1}^{M} \int_{\boldsymbol{x}} p(\boldsymbol{x}) \epsilon_{m}(\boldsymbol{x}) \mathrm{d} \boldsymbol{x} \\  =&\frac{1}{M} \sum_{m=1}^{M} \mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}(\boldsymbol{x})\right]\\=&\mu\end{aligned} \nonumber
+        \end{equation}
+        $\therefore \operatorname{Var}\left[\epsilon_{\text {bag }}(\boldsymbol{x})\right]=\mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{\text {bag }}^{2}(\boldsymbol{x})\right]-\mathbb{E}_{\boldsymbol{x}}^{2}\left[\epsilon_{\text {bag }}(\boldsymbol{x})\right]=\rho \sigma^{2}+\frac{1-\rho}{M} \sigma^{2}$ \\
+        随机森林算法主要通过以下方法降低基决策树之间的相关性:
+        \begin{enumerate}
+            \item 随机采样训练样本：对于每棵基决策树，随机森林算法从原始训练集中进行有放回地随机采样，生成一个新的训练集。这样做的目的是引入样本的随机性，使得每棵决策树的训练集略有不同。
+            \item 随机选择特征子集：对于每棵基决策树的每个节点，在进行分裂操作时，随机森林算法只考虑一个随机选择的特征子集来进行最优特征的选择。这样做的目的是引入特征的随机性，限制每棵决策树的特征选择，从而减少决策树之间的相关性。
+            \item 构建多棵决策树：随机森林算法基于上述两个随机性来源构建多棵决策树。每棵决策树都是基于不同的训练集和随机选择的特征子集独立构建的。这样做的目的是使得每棵决策树具有一定的差异性，减少它们之间的相关性。
+        \end{enumerate}
+        \item [(3)]
+        证明如下:
+        \begin{equation}
+            \begin{aligned} \boldsymbol{E}_{\mathrm{bag}} & =\mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{\mathrm{bag}}^{2}(\boldsymbol{x})\right] \\ & =\frac{1}{M^{2}} \mathbb{E}_{\boldsymbol{x}}\left[\left(\sum_{m=1}^{M} \epsilon_{m}(\boldsymbol{x})\right)^{2}\right] \\ &=\frac{1}{M^{2}} \mathbb{E}_{\boldsymbol{x}}\left[M^2\left(\sum_{m=1}^{M}\frac{1}{M} \epsilon_{m}(\boldsymbol{x})\right)^{2}\right]\\& \leq \frac{1}{M^{2}} \mathbb{E}_{\boldsymbol{x}}\left[M^2\left(\frac{1}{M}\sum_{m=1}^{M} \epsilon_{m}^{2}(\boldsymbol{x})\right)\right] \\ & =\frac{1}{M} \mathbb{E}_{\boldsymbol{x}}\left[\left(\sum_{m=1}^{M} \epsilon_{m}^{2}(\boldsymbol{x})\right)\right] \\ & =\frac{1}{M} \sum_{m=1}^{M} \mathbb{E}_{\boldsymbol{x}}\left[\epsilon_{m}^{2}(\boldsymbol{x})\right] \\ & =\boldsymbol{E}_{\mathrm{avg}}\end{aligned} \nonumber
+        \end{equation}
+    \end{enumerate}
+\end{solution}
+
+\end{document}
